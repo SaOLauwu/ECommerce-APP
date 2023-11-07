@@ -32,6 +32,7 @@ namespace ProyectoFinal
                 string empleadoserializado = JsonSerializer.Serialize(empleado);
                 String emp = APIAut.Login(empleadoserializado);
                 empleado = JsonSerializer.Deserialize<EntidadesJSON.empleado>(emp);
+                
                 switch (empleado.resultado)
                 {
                     case "true":
@@ -40,7 +41,7 @@ namespace ProyectoFinal
                             this.Close();
                         }
                         else
-                            MessageBox.Show("Existe un error con el rol de este usuario. Avise a un administrador.");
+                            MessageBox.Show("1Existe un error con el rol de este usuario. Avise a un administrador.");
                         break;
                     case "false":
                         MessageBox.Show("Su combinación de nombre y contraseña es incorrecta.");

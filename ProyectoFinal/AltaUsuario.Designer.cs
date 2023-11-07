@@ -30,21 +30,21 @@
         {
             label1 = new Label();
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            txtCedula = new TextBox();
+            txtNombre = new TextBox();
             label3 = new Label();
-            textBox3 = new TextBox();
+            txtApellido = new TextBox();
             label4 = new Label();
-            textBox4 = new TextBox();
             label5 = new Label();
-            textBox5 = new TextBox();
+            txtEmail = new TextBox();
             label6 = new Label();
-            textBox6 = new TextBox();
+            txtTelefono = new TextBox();
             label7 = new Label();
-            textBox7 = new TextBox();
+            txtDireccion = new TextBox();
             label8 = new Label();
             btnSalir = new Button();
             btnLogin = new Button();
+            cboRol = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -69,19 +69,19 @@
             label2.Text = "CI:";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox1
+            // txtCedula
             // 
-            textBox1.Location = new Point(220, 132);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 23);
-            textBox1.TabIndex = 3;
+            txtCedula.Location = new Point(220, 132);
+            txtCedula.Name = "txtCedula";
+            txtCedula.Size = new Size(204, 23);
+            txtCedula.TabIndex = 3;
             // 
-            // textBox2
+            // txtNombre
             // 
-            textBox2.Location = new Point(220, 174);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(204, 23);
-            textBox2.TabIndex = 5;
+            txtNombre.Location = new Point(220, 174);
+            txtNombre.Name = "txtNombre";
+            txtNombre.Size = new Size(204, 23);
+            txtNombre.TabIndex = 5;
             // 
             // label3
             // 
@@ -94,12 +94,12 @@
             label3.Text = "Nombre:";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox3
+            // txtApellido
             // 
-            textBox3.Location = new Point(220, 216);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(204, 23);
-            textBox3.TabIndex = 7;
+            txtApellido.Location = new Point(220, 216);
+            txtApellido.Name = "txtApellido";
+            txtApellido.Size = new Size(204, 23);
+            txtApellido.TabIndex = 7;
             // 
             // label4
             // 
@@ -112,13 +112,6 @@
             label4.Text = "Apellido:";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(220, 258);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(204, 23);
-            textBox4.TabIndex = 9;
-            // 
             // label5
             // 
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
@@ -130,12 +123,12 @@
             label5.Text = "Rol:";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox5
+            // txtEmail
             // 
-            textBox5.Location = new Point(220, 300);
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(204, 23);
-            textBox5.TabIndex = 11;
+            txtEmail.Location = new Point(220, 300);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(204, 23);
+            txtEmail.TabIndex = 11;
             // 
             // label6
             // 
@@ -148,12 +141,12 @@
             label6.Text = "Email:";
             label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox6
+            // txtTelefono
             // 
-            textBox6.Location = new Point(220, 342);
-            textBox6.Name = "textBox6";
-            textBox6.Size = new Size(204, 23);
-            textBox6.TabIndex = 13;
+            txtTelefono.Location = new Point(220, 342);
+            txtTelefono.Name = "txtTelefono";
+            txtTelefono.Size = new Size(204, 23);
+            txtTelefono.TabIndex = 13;
             // 
             // label7
             // 
@@ -166,12 +159,12 @@
             label7.Text = "Teléfono:";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // textBox7
+            // txtDireccion
             // 
-            textBox7.Location = new Point(220, 384);
-            textBox7.Name = "textBox7";
-            textBox7.Size = new Size(204, 23);
-            textBox7.TabIndex = 15;
+            txtDireccion.Location = new Point(220, 384);
+            txtDireccion.Name = "txtDireccion";
+            txtDireccion.Size = new Size(204, 23);
+            txtDireccion.TabIndex = 15;
             // 
             // label8
             // 
@@ -192,6 +185,7 @@
             btnSalir.TabIndex = 17;
             btnSalir.Text = "Cancelar";
             btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
             // btnLogin
             // 
@@ -201,27 +195,37 @@
             btnLogin.TabIndex = 16;
             btnLogin.Text = "Crear empleado";
             btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
+            // 
+            // cboRol
+            // 
+            cboRol.FormattingEnabled = true;
+            cboRol.Items.AddRange(new object[] { "Chofer", "Almacenero", "Administrativo" });
+            cboRol.Location = new Point(220, 258);
+            cboRol.Name = "cboRol";
+            cboRol.Size = new Size(204, 23);
+            cboRol.TabIndex = 18;
             // 
             // AltaUsuario
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(489, 551);
+            Controls.Add(cboRol);
             Controls.Add(btnSalir);
             Controls.Add(btnLogin);
-            Controls.Add(textBox7);
+            Controls.Add(txtDireccion);
             Controls.Add(label8);
-            Controls.Add(textBox6);
+            Controls.Add(txtTelefono);
             Controls.Add(label7);
-            Controls.Add(textBox5);
+            Controls.Add(txtEmail);
             Controls.Add(label6);
-            Controls.Add(textBox4);
             Controls.Add(label5);
-            Controls.Add(textBox3);
+            Controls.Add(txtApellido);
             Controls.Add(label4);
-            Controls.Add(textBox2);
+            Controls.Add(txtNombre);
             Controls.Add(label3);
-            Controls.Add(textBox1);
+            Controls.Add(txtCedula);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "AltaUsuario";
@@ -234,20 +238,23 @@
 
         private Label label1;
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private TextBox txtCedula;
+        private TextBox txtNombre;
         private Label label3;
-        private TextBox textBox3;
+        private TextBox txtApellido;
         private Label label4;
-        private TextBox textBox4;
+        private TextBox txtRol;
         private Label label5;
+        private TextBox txtEmail;
         private TextBox textBox5;
         private Label label6;
+        private TextBox txtTelefono;
         private TextBox textBox6;
         private Label label7;
-        private TextBox textBox7;
+        private TextBox txtDireccion;
         private Label label8;
         public Button btnSalir;
         public Button btnLogin;
+        private ComboBox cboRol;
     }
 }

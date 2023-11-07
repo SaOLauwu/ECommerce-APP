@@ -41,8 +41,8 @@ namespace ProyectoFinal
                     return JsonSerializer.Serialize(empleadoo);
                 }
                 Program.cn.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
-                empleadoo.resultado = "true";
-                return JsonSerializer.Serialize(empleadoo);
+                
+                return identificacion(JsonSerializer.Serialize(empleadoo));
             }
         }
 
@@ -58,22 +58,25 @@ namespace ProyectoFinal
             {
                 rs = Program.cn.Execute(sql, out filasAfectadas);
             }
-            catch
+            catch(Exception ex)
             {
+                MessageBox.Show(ex.Message);
                 a.resultado = "false";
                 return JsonSerializer.Serialize(a);
             }
+
             if (rs.RecordCount > 0)
             {
                 String rol = Convert.ToString(rs.Fields[0].Value);
                 a.rol = rol;
                 return JsonSerializer.Serialize(a);
-                
+
             }
-            else
+            else 
+            {
                 a.resultado = "false";
                 return JsonSerializer.Serialize(a);
-
+            }
         }
 
 

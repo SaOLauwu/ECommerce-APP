@@ -66,7 +66,7 @@ namespace ProyectoFinal
                             return 0;
 
                         case "none":
-                            MessageBox.Show("Existe un error con el rol de este usuario. Avise a un administrador.");
+                            MessageBox.Show("2Existe un error con el rol de este usuario. Avise a un administrador.");
                             return 3;
 
                         case "error":
@@ -74,7 +74,7 @@ namespace ProyectoFinal
                             return 2;
 
                         default:
-                            MessageBox.Show("Existe un error con el rol de este usuario. Avise a un administrador.");
+                            MessageBox.Show("3Existe un error con el rol de este usuario. Avise a un administrador.");
                             return 3;
                             
                     }

@@ -32,8 +32,8 @@
             label1 = new Label();
             label2 = new Label();
             btnAlta = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            btnEliminar = new Button();
+            btnConsulta = new Button();
             SuspendLayout();
             // 
             // label1
@@ -69,23 +69,23 @@
             btnAlta.UseVisualStyleBackColor = true;
             btnAlta.Click += btnAlta_Click;
             // 
-            // button1
+            // btnEliminar
             // 
-            button1.Location = new Point(289, 337);
-            button1.Name = "button1";
-            button1.Size = new Size(180, 74);
-            button1.TabIndex = 15;
-            button1.Text = "Eliminar empleado existente.";
-            button1.UseVisualStyleBackColor = true;
+            btnEliminar.Location = new Point(289, 337);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(180, 74);
+            btnEliminar.TabIndex = 15;
+            btnEliminar.Text = "Eliminar empleado existente.";
+            btnEliminar.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnConsulta
             // 
-            button2.Location = new Point(289, 446);
-            button2.Name = "button2";
-            button2.Size = new Size(180, 74);
-            button2.TabIndex = 16;
-            button2.Text = "Consultar empleados.";
-            button2.UseVisualStyleBackColor = true;
+            btnConsulta.Location = new Point(289, 446);
+            btnConsulta.Name = "btnConsulta";
+            btnConsulta.Size = new Size(180, 74);
+            btnConsulta.TabIndex = 16;
+            btnConsulta.Text = "Consultar empleados.";
+            btnConsulta.UseVisualStyleBackColor = true;
             // 
             // frmBackoffice
             // 
@@ -93,8 +93,8 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(784, 620);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(btnConsulta);
+            Controls.Add(btnEliminar);
             Controls.Add(btnAlta);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -109,7 +109,7 @@
         private Label label1;
         private Label label2;
         private Button btnAlta;
-        private Button button1;
-        private Button button2;
+        private Button btnEliminar;
+        private Button btnConsulta;
     }
 }
