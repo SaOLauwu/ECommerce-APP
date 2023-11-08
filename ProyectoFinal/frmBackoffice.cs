@@ -27,5 +27,11 @@ namespace ProyectoFinal
         {
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            BajaEmpleado b = new BajaEmpleado();
+            b.ShowDialog();
+        }
     }
 }

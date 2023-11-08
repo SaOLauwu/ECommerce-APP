@@ -52,8 +52,9 @@ namespace ProyectoFinal
                     {
                         rs = Program.cn.Execute(sql, out filasAfectadas);
                     }
-                    catch
+                    catch (Exception ex)
                     {
+                        MessageBox.Show(ex.Message);
                         MessageBox.Show("1Existe un problema con la conexion al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
                         return;
                     }
@@ -74,8 +75,9 @@ namespace ProyectoFinal
                         {
                             Program.cn.Execute(sql, out filasAfectadas);
                         }
-                        catch
+                        catch(Exception ex)
                         {
+                            MessageBox.Show(ex.Message);
                             MessageBox.Show("2Existe un problema con la conexion al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
                             return;
                         }
@@ -94,7 +96,58 @@ namespace ProyectoFinal
                         switch (cboRol.Text)
                         {
                             case "Almacenero":
-                                sql = "GRANT insert, select, update on sistemapaqueteria.lotes to '" + nombreusu + "'; GRANT insert, select on sistemapaqueteria.almacenes to '" + nombreusu + "'; GRANT insert, select on sistemapaqueteria.eventos to '" + nombreusu + "'; GRANT select on sistemapaqueteria.transportes to '" + nombreusu + "'; GRANT insert, select, update on sistemapaqueteria.paquete_lote to '" + nombreusu + "'; GRANT select on sistemapaqueteria.ruta to '" + nombreusu + "';";
+                                string grantLotes = "GRANT insert, select, update on sistemapaqueteria.lotes to '" + nombreusu + "'@'%';";
+                                string grantAlmacenes = "GRANT insert, select on sistemapaqueteria.almacenes to '" + nombreusu + "'@'%';";
+                                string grantEventos = "GRANT insert, select on sistemapaqueteria.eventos to '" + nombreusu + "'@'%';";
+                                string grantTransportes = "GRANT select on sistemapaqueteria.transportes to '" + nombreusu + "'@'%';";
+                                string grantPaqueteLote = "GRANT insert, select, update on sistemapaqueteria.paquete_lote to '" + nombreusu + "'@'%';";
+                                string grantRuta = "GRANT select on sistemapaqueteria.ruta to '" + nombreusu + "'@'%';";
+                                try
+                                {
+                                    Program.cn.Execute(grantLotes, out filasAfectadas);
+                                    Program.cn.Execute(grantAlmacenes, out filasAfectadas);
+                                    Program.cn.Execute(grantEventos, out filasAfectadas);
+                                    Program.cn.Execute(grantTransportes, out filasAfectadas);
+                                    Program.cn.Execute(grantPaqueteLote, out filasAfectadas);
+                                    Program.cn.Execute(grantRuta, out filasAfectadas);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    
+                                    return;
+                                }
+
+                                break;
+                            case "Chofer":
+                                string grantTransportess = "GRANT select on sistemapaqueteria.transportes to '" + nombreusu + "'@'%';";
+                                string grantAlmaceness = "GRANT select on sistemapaqueteria.almacenes to '" + nombreusu + "'@'%';";
+                                string grantEventoss = "GRANT insert, select on sistemapaqueteria.eventos to '" + nombreusu + "'@'%';";
+                                string grantPaqueteLotee = "GRANT insert, select on sistemapaqueteria.paquete_lote to '" + nombreusu + "'@'%';";
+                                string grantPaquetes = "GRANT select on sistemapaqueteria.paquetes to '" + nombreusu + "'@'localhost';";
+                                string grantRutaa = "GRANT select on sistemapaqueteria.ruta to '" + nombreusu + "'@'%';";
+                                string grantRutasAsignadas = "GRANT select on sistemapaqueteria.rutasasignadas to '" + nombreusu + "'@'%';";
+                                try
+                                {
+                                    Program.cn.Execute(grantTransportess, out filasAfectadas);
+                                    Program.cn.Execute(grantAlmaceness, out filasAfectadas);
+                                    Program.cn.Execute(grantEventoss, out filasAfectadas);
+                                    Program.cn.Execute(grantPaqueteLotee, out filasAfectadas);
+                                    Program.cn.Execute(grantPaquetes, out filasAfectadas);
+                                    Program.cn.Execute(grantRutaa, out filasAfectadas);
+                                    Program.cn.Execute(grantRutasAsignadas, out filasAfectadas);
+                                }
+                                catch (Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    MessageBox.Show("Existe un problema con la conexión al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
+                                    return;
+                                }
+
+                                break;
+                            case "Administrativo":
+                                sql = "GRANT ALL PRIVILEGES ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                String grant = "GRANT GRANT OPTION ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
                                 try
                                 {
                                     Program.cn.Execute(sql, out filasAfectadas);
@@ -102,29 +155,6 @@ namespace ProyectoFinal
                                 catch(Exception ex)
                                 {
                                     MessageBox.Show(ex.Message);
-                                    return;
-                                }
-                                break;
-                            case "Chofer":
-                                sql = "GRANT select on sistemapaqueteria.transportes to '" + nombreusu + "'; GRANT select on sistemapaqueteria.almacenes to '" + nombreusu + "'; GRANT insert, select on sistemapaqueteria.eventos to '" + nombreusu + "'; GRANT insert, select on sistemapaqueteria.paquete_lote to '" + nombreusu + "';  GRANT select on sistemapaqueteria.paquetes to '" + nombreusu + "';  GRANT select on sistemapaqueteria.ruta to '" + nombreusu + "';  GRANT select on sistemapaqueteria.rutasasignadas to '" + nombreusu + "';";
-                                try
-                                {
-                                    Program.cn.Execute(sql, out filasAfectadas);
-                                }
-                                catch
-                                {
-                                    MessageBox.Show("5Existe un problema con la conexión al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
-                                    return;
-                                }
-                                break;
-                            case "Administrativo":
-                                sql = "GRANT ALL PRIVILEGES ON sistemapaqueteria TO '" + nombreusu + "'@'%';";
-                                try
-                                {
-                                    Program.cn.Execute(sql, out filasAfectadas);
-                                }
-                                catch
-                                {
                                     MessageBox.Show("6Existe un problema con la conexión al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
                                     return;
                                 }

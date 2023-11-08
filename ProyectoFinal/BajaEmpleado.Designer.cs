@@ -30,8 +30,8 @@
         {
             label1 = new Label();
             btnSalir = new Button();
-            btnLogin = new Button();
-            textBox1 = new TextBox();
+            btnDelete = new Button();
+            txtCedula = new TextBox();
             label2 = new Label();
             SuspendLayout();
             // 
@@ -55,21 +55,22 @@
             btnSalir.Text = "Cancelar";
             btnSalir.UseVisualStyleBackColor = true;
             // 
-            // btnLogin
+            // btnDelete
             // 
-            btnLogin.Location = new Point(32, 305);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(161, 44);
-            btnLogin.TabIndex = 20;
-            btnLogin.Text = "Eliminar empleado";
-            btnLogin.UseVisualStyleBackColor = true;
+            btnDelete.Location = new Point(32, 305);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(161, 44);
+            btnDelete.TabIndex = 20;
+            btnDelete.Text = "Eliminar empleado";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnLogin_Click;
             // 
-            // textBox1
+            // txtCedula
             // 
-            textBox1.Location = new Point(190, 179);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(204, 23);
-            textBox1.TabIndex = 19;
+            txtCedula.Location = new Point(190, 179);
+            txtCedula.Name = "txtCedula";
+            txtCedula.Size = new Size(204, 23);
+            txtCedula.TabIndex = 19;
             // 
             // label2
             // 
@@ -88,8 +89,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(430, 379);
             Controls.Add(btnSalir);
-            Controls.Add(btnLogin);
-            Controls.Add(textBox1);
+            Controls.Add(btnDelete);
+            Controls.Add(txtCedula);
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "BajaEmpleado";
@@ -102,8 +103,8 @@
 
         private Label label1;
         public Button btnSalir;
-        public Button btnLogin;
-        private TextBox textBox1;
+        public Button btnDelete;
+        private TextBox txtCedula;
         private Label label2;
     }
 }
