@@ -32,10 +32,9 @@
             label1 = new Label();
             listBox1 = new ListBox();
             label2 = new Label();
-            textBox1 = new TextBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
+            comboBox1 = new ComboBox();
+            label6 = new Label();
+            btnLogin = new Button();
             SuspendLayout();
             // 
             // label1
@@ -54,65 +53,58 @@
             // 
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(75, 170);
+            listBox1.Location = new Point(31, 149);
             listBox1.Name = "listBox1";
-            listBox1.Size = new Size(638, 349);
+            listBox1.Size = new Size(791, 349);
             listBox1.TabIndex = 4;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(62, 116);
+            label2.Location = new Point(134, 100);
             label2.Name = "label2";
-            label2.Size = new Size(369, 21);
+            label2.Size = new Size(527, 21);
             label2.TabIndex = 5;
-            label2.Text = "Especifice un almacén para gestionar sus productos:";
+            label2.Text = "Haga doble click sobre uno de los almacenes para gestionar sus productos:";
             // 
-            // textBox1
+            // comboBox1
             // 
-            textBox1.Location = new Point(455, 118);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(118, 23);
-            textBox1.TabIndex = 6;
-            textBox1.Text = "Id del Almacen";
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Almacenero", "Chofer", "Administrativo" });
+            comboBox1.Location = new Point(318, 544);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(205, 23);
+            comboBox1.TabIndex = 16;
             // 
-            // button1
+            // label6
             // 
-            button1.Location = new Point(629, 118);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 7;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
+            label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.ImageAlign = ContentAlignment.MiddleLeft;
+            label6.Location = new Point(92, 535);
+            label6.Name = "label6";
+            label6.Size = new Size(208, 35);
+            label6.TabIndex = 15;
+            label6.Text = "Filtrar por departamento:";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // button2
+            // btnLogin
             // 
-            button2.Location = new Point(508, 553);
-            button2.Name = "button2";
-            button2.Size = new Size(108, 40);
-            button2.TabIndex = 8;
-            button2.Text = "Asignación lotes";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(629, 553);
-            button3.Name = "button3";
-            button3.Size = new Size(128, 40);
-            button3.TabIndex = 9;
-            button3.Text = "Asignación camiones";
-            button3.UseVisualStyleBackColor = true;
+            btnLogin.Location = new Point(590, 535);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(155, 35);
+            btnLogin.TabIndex = 23;
+            btnLogin.Text = "Filtrar";
+            btnLogin.UseVisualStyleBackColor = true;
             // 
             // frmAlmacenes
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(852, 620);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(btnLogin);
+            Controls.Add(comboBox1);
+            Controls.Add(label6);
             Controls.Add(label2);
             Controls.Add(listBox1);
             Controls.Add(label1);
@@ -129,9 +121,8 @@
         private Label label1;
         private ListBox listBox1;
         private Label label2;
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
+        private ComboBox comboBox1;
+        private Label label6;
+        public Button btnLogin;
     }
 }
