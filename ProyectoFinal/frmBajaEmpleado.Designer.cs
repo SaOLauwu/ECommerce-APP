@@ -1,6 +1,6 @@
 ﻿namespace ProyectoFinal
 {
-    partial class BajaEmpleado
+    partial class frmBajaEmpleado
     {
         /// <summary>
         /// Required designer variable.
@@ -85,8 +85,10 @@
             // 
             // BajaEmpleado
             // 
+            AcceptButton = btnDelete;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnSalir;
             ClientSize = new Size(430, 379);
             Controls.Add(btnSalir);
             Controls.Add(btnDelete);

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ProyectoFinal
 {
-    public partial class AltaUsuario : Form
+    public partial class frmAltaUsuario : Form
     {
-        public AltaUsuario()
+        public frmAltaUsuario()
         {
             InitializeComponent();
         }
@@ -63,6 +63,22 @@ namespace ProyectoFinal
                         MessageBox.Show("Ya existe un usuario con esta cédula de identidad.");
                         return;
                     }
+                    sql = "select * from empleados where Email ='" + txtEmail.Text + "'";
+                    try
+                    {
+                        rs = Program.cn.Execute(sql, out filasAfectadas);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                        MessageBox.Show("1Existe un problema con la conexion al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
+                        return;
+                    }
+                    if (rs.RecordCount > 0)
+                    {
+                        MessageBox.Show("Esta dirección de correo electrónico ya está asignada a un empleado.");
+                        return;
+                    }
                     else
                     {
                         DialogResult result = MessageBox.Show("¿Está seguro de que desea crear el siguiente empleado?\nCI: " + ci + "\nNombre: " + txtNombre.Text + "\nApellido: " + txtApellido.Text + "\nCargo: " + cboRol.Text + "\nFecha de contratación: " + fechaParaMySQL + "\nE-Mail: " + txtEmail.Text + "\nTeléfono: " + txtTelefono.Text + "\nDirección: " + txtDireccion.Text, "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -75,7 +91,7 @@ namespace ProyectoFinal
                         {
                             Program.cn.Execute(sql, out filasAfectadas);
                         }
-                        catch(Exception ex)
+                        catch (Exception ex)
                         {
                             MessageBox.Show(ex.Message);
                             MessageBox.Show("2Existe un problema con la conexion al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
@@ -114,7 +130,7 @@ namespace ProyectoFinal
                                 catch (Exception ex)
                                 {
                                     MessageBox.Show(ex.Message);
-                                    
+
                                     return;
                                 }
 
@@ -146,21 +162,60 @@ namespace ProyectoFinal
 
                                 break;
                             case "Administrativo":
-                                sql = "GRANT ALL PRIVILEGES ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
-                                String grant = "GRANT GRANT OPTION ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantSelect = "GRANT SELECT ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';"; //*.*
+                                string grantInsert = "GRANT INSERT ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantUpdate = "GRANT UPDATE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantDelete = "GRANT DELETE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantCreate = "GRANT CREATE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantCreateUser = "GRANT CREATE USER ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantDrop = "GRANT DROP ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantIndex = "GRANT INDEX ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantAlter = "GRANT ALTER ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantLockTables = "GRANT LOCK TABLES ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantReferences = "GRANT REFERENCES ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantTemporary = "GRANT TEMPORARY ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantExecute = "GRANT EXECUTE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantCreateView = "GRANT CREATE VIEW ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantShowView = "GRANT SHOW VIEW ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantCreateRoutine = "GRANT CREATE ROUTINE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantAlterRoutine = "GRANT ALTER ROUTINE ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantEvent = "GRANT EVENT ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantTrigger = "GRANT TRIGGER ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+                                string grantGrantOption = "GRANT GRANT OPTION ON sistemapaqueteria.* TO '" + nombreusu + "'@'%';";
+
                                 try
                                 {
-                                    Program.cn.Execute(sql, out filasAfectadas);
+                                    Program.cn.Execute(grantSelect, out filasAfectadas);
+                                    Program.cn.Execute(grantInsert, out filasAfectadas);
+                                    Program.cn.Execute(grantUpdate, out filasAfectadas);
+                                    Program.cn.Execute(grantDelete, out filasAfectadas);
+                                    Program.cn.Execute(grantCreate, out filasAfectadas);
+                                    Program.cn.Execute(grantCreateUser, out filasAfectadas);
+                                    Program.cn.Execute(grantDrop, out filasAfectadas);
+                                    Program.cn.Execute(grantIndex, out filasAfectadas);
+                                    Program.cn.Execute(grantAlter, out filasAfectadas);
+                                    Program.cn.Execute(grantLockTables, out filasAfectadas);
+                                    Program.cn.Execute(grantReferences, out filasAfectadas);
+                                    Program.cn.Execute(grantTemporary, out filasAfectadas);
+                                    Program.cn.Execute(grantExecute, out filasAfectadas);
+                                    Program.cn.Execute(grantCreateView, out filasAfectadas);
+                                    Program.cn.Execute(grantShowView, out filasAfectadas);
+                                    Program.cn.Execute(grantCreateRoutine, out filasAfectadas);
+                                    Program.cn.Execute(grantAlterRoutine, out filasAfectadas);
+                                    Program.cn.Execute(grantEvent, out filasAfectadas);
+                                    Program.cn.Execute(grantTrigger, out filasAfectadas);
+                                    Program.cn.Execute(grantGrantOption, out filasAfectadas);
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     MessageBox.Show(ex.Message);
-                                    MessageBox.Show("6Existe un problema con la conexión al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
+                                    MessageBox.Show("Existe un problema con la conexión al servidor. Intente nuevamente, si el problema persiste avise a un administrador");
                                     return;
                                 }
+
                                 break;
                         }
-                        
+
 
                         MessageBox.Show("Empleado ingresado con éxito.");
                         this.Close();

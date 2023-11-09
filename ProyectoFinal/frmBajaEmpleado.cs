@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ADODB;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,9 +11,9 @@ using System.Windows.Forms;
 
 namespace ProyectoFinal
 {
-    public partial class BajaEmpleado : Form
+    public partial class frmBajaEmpleado : Form
     {
-        public BajaEmpleado()
+        public frmBajaEmpleado()
         {
             InitializeComponent();
         }
@@ -42,7 +43,6 @@ namespace ProyectoFinal
                 {
                     rs = Program.cn.Execute(sql, out filasAfectadas);
 
-                    // Suponiendo que si rs.RecordCount es 0, entonces no hay empleados con esa cédula.
                     if (rs.RecordCount == 0)
                     {
                         MessageBox.Show("No existe un empleado con esta cédula de identidad.");
@@ -53,8 +53,28 @@ namespace ProyectoFinal
 
                     if (yaEliminado == "0")
                     {
-                        sql = "UPDATE Empleados SET isDeleted = 1 WHERE CI = " + ci + " AND isDeleted = 0;";
-                        Program.cn.Execute(sql, out filasAfectadas);
+                        sql = "SELECT nombre FROM Empleados WHERE Ci = " + ci;
+                        try
+                        {
+                            rs = Program.cn.Execute(sql, out filasAfectadas);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ha ocurrido un error al eliminar el empleado. Intente nuevamente.");
+                        }
+                        String nombre = Convert.ToString(rs.Fields[0].Value);
+
+                        sql = "UPDATE Empleados SET isDeleted = 1 WHERE Ci = " + ci + " AND isDeleted = 0;";
+                        String sqll = "DROP USER '" + nombre + ci +"'@'%';";
+                        try
+                        {
+                            Program.cn.Execute(sql, out filasAfectadas);
+                            Program.cn.Execute(sqll, out filasAfectadas);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Ha ocurrido un error al eliminar el empleado. Intente nuevamente.");
+                        }                        
                         MessageBox.Show("El empleado ha sido eliminado correctamente.");
                     }
                     else if (yaEliminado == "1")

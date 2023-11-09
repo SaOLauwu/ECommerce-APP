@@ -19,7 +19,7 @@ namespace ProyectoFinal
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            AltaUsuario a = new AltaUsuario();
+            frmAltaUsuario a = new frmAltaUsuario();
             a.ShowDialog();
         }
 
@@ -30,8 +30,14 @@ namespace ProyectoFinal
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            BajaEmpleado b = new BajaEmpleado();
+            frmBajaEmpleado b = new frmBajaEmpleado();
             b.ShowDialog();
+        }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            frmConsultarEmpleados c = new frmConsultarEmpleados();
+            c.ShowDialog();
         }
     }
 }

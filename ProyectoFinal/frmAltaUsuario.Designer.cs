@@ -1,6 +1,6 @@
 ﻿namespace ProyectoFinal
 {
-    partial class AltaUsuario
+    partial class frmAltaUsuario
     {
         /// <summary>
         /// Required designer variable.
@@ -208,8 +208,10 @@
             // 
             // AltaUsuario
             // 
+            AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnSalir;
             ClientSize = new Size(489, 551);
             Controls.Add(cboRol);
             Controls.Add(btnSalir);

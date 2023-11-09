@@ -53,9 +53,9 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(38, 119);
             label2.Name = "label2";
-            label2.Size = new Size(396, 21);
+            label2.Size = new Size(366, 21);
             label2.TabIndex = 6;
-            label2.Text = "Aquí tiene una lista de los paquetes asignados para hoy:";
+            label2.Text = "Aquí tiene una lista de los lotes asignados para hoy:";
             // 
             // listBox1
             // 

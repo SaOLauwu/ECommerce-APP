@@ -87,6 +87,7 @@
             btnConsulta.TabIndex = 16;
             btnConsulta.Text = "Consultar empleados.";
             btnConsulta.UseVisualStyleBackColor = true;
+            btnConsulta.Click += btnConsulta_Click;
             // 
             // frmBackoffice
             // 
