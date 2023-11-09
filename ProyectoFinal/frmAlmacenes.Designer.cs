@@ -108,7 +108,7 @@
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(784, 620);
+            ClientSize = new Size(852, 620);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);

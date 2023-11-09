@@ -13,12 +13,17 @@ namespace ProyectoFinal
         {
             public int ci { get; set; }
             public String nombre { get; set; }
+            public String apellido { get; set; }
             public string rol { get; set; }
             public string clave { get; set; }
             public string resultado { get; set; }
             
         }
 
+        internal class sentenciaSQL
+        {
+            public String sql { get; set; }
+        }
         
     }
 }

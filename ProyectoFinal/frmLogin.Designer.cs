@@ -37,6 +37,8 @@
             btnSalir = new Button();
             label4 = new Label();
             txtboxNombre = new TextBox();
+            txtBoxApellido = new TextBox();
+            label5 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -55,7 +57,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(186, 221);
+            label2.Location = new Point(186, 241);
             label2.Name = "label2";
             label2.Size = new Size(45, 32);
             label2.TabIndex = 2;
@@ -63,7 +65,7 @@
             // 
             // txtboxCi
             // 
-            txtboxCi.Location = new Point(357, 230);
+            txtboxCi.Location = new Point(357, 250);
             txtboxCi.Name = "txtboxCi";
             txtboxCi.Size = new Size(276, 23);
             txtboxCi.TabIndex = 3;
@@ -111,19 +113,36 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(57, 131);
+            label4.Location = new Point(129, 122);
             label4.Name = "label4";
-            label4.Size = new Size(174, 32);
+            label4.Size = new Size(102, 32);
             label4.TabIndex = 8;
-            label4.Text = "Primer nombre";
+            label4.Text = "Nombre";
             label4.Click += label4_Click;
             // 
             // txtboxNombre
             // 
-            txtboxNombre.Location = new Point(357, 142);
+            txtboxNombre.Location = new Point(357, 131);
             txtboxNombre.Name = "txtboxNombre";
             txtboxNombre.Size = new Size(276, 23);
             txtboxNombre.TabIndex = 9;
+            // 
+            // txtBoxApellido
+            // 
+            txtBoxApellido.Location = new Point(357, 190);
+            txtBoxApellido.Name = "txtBoxApellido";
+            txtBoxApellido.Size = new Size(276, 23);
+            txtBoxApellido.TabIndex = 11;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(129, 181);
+            label5.Name = "label5";
+            label5.Size = new Size(102, 32);
+            label5.TabIndex = 10;
+            label5.Text = "Apellido";
             // 
             // frmLogin
             // 
@@ -133,6 +152,8 @@
             CancelButton = btnSalir;
             ClientSize = new Size(823, 484);
             ControlBox = false;
+            Controls.Add(txtBoxApellido);
+            Controls.Add(label5);
             Controls.Add(txtboxNombre);
             Controls.Add(label4);
             Controls.Add(btnSalir);
@@ -160,5 +181,7 @@
         public TextBox txtboxCi;
         private Label label4;
         public TextBox txtboxNombre;
+        public TextBox txtBoxApellido;
+        private Label label5;
     }
 }
