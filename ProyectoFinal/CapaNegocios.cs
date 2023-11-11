@@ -78,7 +78,7 @@ namespace ProyectoFinal
                 return JsonSerializer.Serialize(a);
             }
         }
-        public static string AsignarLoteACamion(string asignacionJson)
+       /* public static string AsignarLoteACamion(string asignacionJson)
         {
             var asignacion = JsonSerializer.Deserialize<EntidadesJSON.AsignacionLote>(asignacionJson);
 
@@ -307,6 +307,6 @@ namespace ProyectoFinal
                 return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
             }
         }
-
+       */
     }
 }

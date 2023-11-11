@@ -30,11 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAlmacenes));
             label1 = new Label();
-            listBox1 = new ListBox();
             label2 = new Label();
             comboBox1 = new ComboBox();
             label6 = new Label();
             btnLogin = new Button();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -49,15 +50,6 @@
             label1.Text = "Almacenes";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // listBox1
-            // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(31, 149);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(791, 349);
-            listBox1.TabIndex = 4;
-            // 
             // label2
             // 
             label2.AutoSize = true;
@@ -71,8 +63,8 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Almacenero", "Chofer", "Administrativo" });
-            comboBox1.Location = new Point(318, 544);
+            comboBox1.Items.AddRange(new object[] { "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", "Flores", "Florida", "Lavalleja", "Maldonado", "Montevideo", "Paysandu", "Río Negro", "Rivera", "Rocha", "Salto", "San José", "Soriano", "Tacuarembo ", "Treinta y Tres." });
+            comboBox1.Location = new Point(282, 542);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(205, 23);
             comboBox1.TabIndex = 16;
@@ -81,7 +73,7 @@
             // 
             label6.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
             label6.ImageAlign = ContentAlignment.MiddleLeft;
-            label6.Location = new Point(92, 535);
+            label6.Location = new Point(57, 535);
             label6.Name = "label6";
             label6.Size = new Size(208, 35);
             label6.TabIndex = 15;
@@ -90,28 +82,39 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(590, 535);
+            btnLogin.Location = new Point(561, 535);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(155, 35);
             btnLogin.TabIndex = 23;
             btnLogin.Text = "Filtrar";
             btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(26, 133);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(731, 384);
+            dataGridView1.TabIndex = 24;
             // 
             // frmAlmacenes
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
-            ClientSize = new Size(852, 620);
+            ClientSize = new Size(806, 620);
+            Controls.Add(dataGridView1);
             Controls.Add(btnLogin);
             Controls.Add(comboBox1);
             Controls.Add(label6);
             Controls.Add(label2);
-            Controls.Add(listBox1);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "frmAlmacenes";
             Text = "frmAlmacenes";
             Load += frmAlmacenes_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -119,10 +122,10 @@
         #endregion
 
         private Label label1;
-        private ListBox listBox1;
         private Label label2;
         private ComboBox comboBox1;
         private Label label6;
         public Button btnLogin;
+        private DataGridView dataGridView1;
     }
 }

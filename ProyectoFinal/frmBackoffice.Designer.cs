@@ -77,6 +77,7 @@
             btnEliminar.TabIndex = 15;
             btnEliminar.Text = "Eliminar empleado existente.";
             btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnConsulta
             // 
@@ -86,6 +87,7 @@
             btnConsulta.TabIndex = 16;
             btnConsulta.Text = "Consultar empleados.";
             btnConsulta.UseVisualStyleBackColor = true;
+            btnConsulta.Click += btnConsulta_Click;
             // 
             // frmBackoffice
             // 

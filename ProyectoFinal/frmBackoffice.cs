@@ -27,5 +27,17 @@ namespace ProyectoFinal
         {
 
         }
+
+        private void btnConsulta_Click(object sender, EventArgs e)
+        {
+            frmConsultarEmpleados a = new frmConsultarEmpleados();
+            a.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            frmBajaEmpleado a = new frmBajaEmpleado();
+            a.ShowDialog();
+        }
     }
 }
