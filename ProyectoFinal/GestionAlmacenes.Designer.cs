@@ -64,6 +64,7 @@
             btnLote.TabIndex = 19;
             btnLote.Text = "Asignar a lote";
             btnLote.UseVisualStyleBackColor = true;
+            btnLote.Click += btnLote_Click;
             // 
             // btnEstado
             // 
@@ -97,6 +98,7 @@
             Controls.Add(label1);
             Name = "GestionAlmacenes";
             Text = "GestionAlmacenes";
+            Load += GestionAlmacenes_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
