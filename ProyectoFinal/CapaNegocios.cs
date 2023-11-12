@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ADODB;
 using System.Text.Json;
+using System.Windows.Forms; // Asegúrate de que esto esté presente si estás utilizando MessageBox
 using static ProyectoFinal.EntidadesJSON;
 
 namespace ProyectoFinal
@@ -12,7 +11,7 @@ namespace ProyectoFinal
     {
         public static string Login(string user)
         {
-            EntidadesJSON.empleado empleadoo = JsonSerializer.Deserialize<EntidadesJSON.empleado>(user);
+            empleado empleadoo = JsonSerializer.Deserialize<empleado>(user);
             if (Program.cn.State != 1)
             {
                 try
@@ -24,7 +23,7 @@ namespace ProyectoFinal
                     empleadoo.resultado = "false";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                Program.cn.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
+                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
                 empleadoo.resultado = "true";
                 return JsonSerializer.Serialize(empleadoo);
             }
@@ -40,25 +39,24 @@ namespace ProyectoFinal
                     empleadoo.resultado = "false";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                Program.cn.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
-                
+                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+
                 return identificacion(JsonSerializer.Serialize(empleadoo));
             }
         }
 
-        public static String identificacion(string emp)
+        public static string identificacion(string emp)
         {
-            EntidadesJSON.empleado a = JsonSerializer.Deserialize<EntidadesJSON.empleado>(emp);
+            empleado a = JsonSerializer.Deserialize<empleado>(emp);
 
-            ADODB.Recordset rs = new ADODB.Recordset();
-            String sql;
-            sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci;
+            Recordset rs = new Recordset();
+            string sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci;
             Object filasAfectadas;
             try
             {
                 rs = Program.cn.Execute(sql, out filasAfectadas);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
                 a.resultado = "false";
@@ -70,243 +68,164 @@ namespace ProyectoFinal
                 String rol = Convert.ToString(rs.Fields[0].Value);
                 a.rol = rol;
                 return JsonSerializer.Serialize(a);
-
             }
-            else 
+            else
             {
                 a.resultado = "false";
                 return JsonSerializer.Serialize(a);
             }
         }
-       /* public static string AsignarLoteACamion(string asignacionJson)
+
+        public static string ObtenerAlmacenes(string sentenciaSerializada)
         {
-            var asignacion = JsonSerializer.Deserialize<EntidadesJSON.AsignacionLote>(asignacionJson);
+            EntidadesJSON.sentenciaSQL sentencia = JsonSerializer.Deserialize<EntidadesJSON.sentenciaSQL>(sentenciaSerializada);
+            List<EntidadesJSON.Almacen> listaAlmacenes = new List<EntidadesJSON.Almacen>();
 
-            // Suponiendo que se elige el camión basado en la información del destino y disponibilidad.
-            var camion = SeleccionarCamionParaDestino(asignacion.Destino);
-
-            string sql = $"UPDATE Lotes SET ID_Camion = {camion.Id} WHERE ID_Lote = {asignacion.IdLote}";
+            Recordset rs = new Recordset();
+            string sql = sentencia.sql;
+            object filasAfectadas;
 
             try
             {
-                Program.cn.Execute(sql, out _);
-                asignacion.resultado = "true";
-            }
-            catch (Exception ex)
-            {
-                asignacion.resultado = "false";
-                asignacion.mensajeError = ex.Message;
-            }
+                rs = Program.cn.Execute(sql, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
 
-            return JsonSerializer.Serialize(asignacion);
-        }
-
-        public static string AsignarRutaACamion(string rutaACamionJson)
-        {
-            // Deserializar la información recibida para obtener los detalles de la asignación
-            var rutaACamion = JsonSerializer.Deserialize<EntidadesJSON.RutaACamion>(rutaACamionJson);
-
-            // SQL para actualizar la asignación de una ruta a un camión
-            string sql = $"UPDATE Transportes SET IDRuta = {rutaACamion.IdRuta} WHERE Matricula = {rutaACamion.Matricula}";
-
-            try
-            {
-                Program.cn.Execute(sql, out _);
-                rutaACamion.resultado = "true";
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                rutaACamion.resultado = "false";
-            }
-
-            // Serializar la respuesta y devolverla
-            return JsonSerializer.Serialize(rutaACamion);
-        }
-        public static string ConsultarEstadoLote(string loteJson)
-        {
-            var lote = JsonSerializer.Deserialize<EntidadesJSON.Lote>(loteJson);
-
-            string sql = $"SELECT Estado FROM Lotes WHERE ID_Lote = {lote.Id}";
-
-            ADODB.Recordset rs;
-            try
-            {
-                rs = Program.cn.Execute(sql, out _);
-                if (rs.RecordCount > 0)
+                while (!rs.EOF)
                 {
-                    lote.Estado = Convert.ToString(rs.Fields["Estado"].Value);
-                    lote.resultado = "true";
+                    var almacen = new EntidadesJSON.Almacen
+                    {
+                        ID_Almacen = Convert.ToInt32(rs.Fields["ID_Almacen"].Value),
+                        Ubicacion = Convert.ToString(rs.Fields["Ubicacion"].Value),
+                        Capacidad_Maxima = Convert.ToDecimal(rs.Fields["Capacidad_Maxima"].Value),
+                        Productos_Actuales = Convert.ToInt32(rs.Fields["Productos_Actuales"].Value),
+                        Responsable = rs.Fields["Responsable"].Value is DBNull ? (int?)null : Convert.ToInt32(rs.Fields["Responsable"].Value),
+                        IDRuta = rs.Fields["IDRuta"].Value is DBNull ? (int?)null : Convert.ToInt32(rs.Fields["IDRuta"].Value)
+                    };
+                    listaAlmacenes.Add(almacen);
+                    rs.MoveNext();
+                }
+                rs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al obtener almacenes: " + ex.Message);
+            }
+
+            return JsonSerializer.Serialize(listaAlmacenes);
+        }
+
+        
+        public static string EjecutarConsulta(string sentenciaJSON)
+        {
+            var sentencia = JsonSerializer.Deserialize<EntidadesJSON.sentenciaSQL>(sentenciaJSON);
+            Recordset rs = new Recordset();
+            object filasAfectadas;
+            List<EntidadesJSON.Paquete> paquetes = new List<EntidadesJSON.Paquete>();
+
+            try
+            {
+                rs = Program.cn.Execute(sentencia.sql, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                while (!rs.EOF)
+                {
+                    paquetes.Add(new EntidadesJSON.Paquete
+                    {
+                        ID_Paquete = Convert.ToInt32(rs.Fields["ID_Paquete"].Value),
+                        Descripcion = Convert.ToString(rs.Fields["Descripcion"].Value),
+                        Peso = Convert.ToDecimal(rs.Fields["Peso"].Value),
+                        Estado = Convert.ToString(rs.Fields["Estado"].Value),
+                        ID_Almacen = Convert.ToInt32(rs.Fields["ID_Almacen"].Value)
+                        // Asegúrate de que el campo "ID_Almacen" exista en tu base de datos.
+                    });
+                    rs.MoveNext();
+                }
+                rs.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en CapaNegocios - EjecutarConsulta: " + ex.Message);
+            }
+
+            return JsonSerializer.Serialize(paquetes);
+        }
+
+
+        public static string ActualizarEstadoPaquetes(string paquetesJSON)
+        {
+            List<EntidadesJSON.Paquete> paquetes = JsonSerializer.Deserialize<List<EntidadesJSON.Paquete>>(paquetesJSON);
+            object filasAfectadas = null;
+
+            foreach (var paquete in paquetes)
+            {
+                string nuevoEstado = paquete.Estado;
+                int idPaquete = paquete.ID_Paquete;
+                string sqlUpdatePaquete;
+
+                if (nuevoEstado != "En almacén")
+                {
+                    sqlUpdatePaquete = $"UPDATE Paquetes SET Estado = '{nuevoEstado}', ID_Almacen = NULL WHERE ID_Paquete = {idPaquete}";
                 }
                 else
                 {
-                    lote.resultado = "false";
-                    lote.mensajeError = "Lote no encontrado.";
+                    sqlUpdatePaquete = $"UPDATE Paquetes SET Estado = '{nuevoEstado}' WHERE ID_Paquete = {idPaquete}";
                 }
-            }
-            catch (Exception ex)
-            {
-                lote.resultado = "false";
-                lote.mensajeError = ex.Message;
-            }
 
-            return JsonSerializer.Serialize(lote);
-        }
-        public static string CrearPaquete(string paqueteJson)
-        {
-            var paquete = JsonSerializer.Deserialize<EntidadesJSON.Paquete>(paqueteJson);
-
-            string sql = $"INSERT INTO Paquetes (Descripcion, Peso) VALUES ('{paquete.Descripcion}', {paquete.Peso})";
-
-            try
-            {
-                Program.cn.Execute(sql, out _);
-                paquete.resultado = "true";
-            }
-            catch (Exception ex)
-            {
-                paquete.resultado = "false";
-                paquete.mensajeError = ex.Message;
-            }
-
-            return JsonSerializer.Serialize(paquete);
-        }
-        public static string AgruparPaqueteEnLote(string paqueteJson, int idLote)
-        {
-            EntidadesJSON.Paquete paquete = JsonSerializer.Deserialize<EntidadesJSON.Paquete>(paqueteJson);
-            ADODB.Command command = new ADODB.Command();
-            ADODB.Recordset recordset = new ADODB.Recordset();
-            string sql = $"INSERT INTO PaquetesLotes (IdPaquete, IdLote) VALUES ({paquete.Id}, {idLote});";
-
-            try
-            {
-                command.ActiveConnection = Program.cn;
-                command.CommandText = sql;
-                Program.cn.BeginTrans();
-                recordset = command.Execute();
-                Program.cn.CommitTrans();
-                return JsonSerializer.Serialize(new { resultado = "true" });
-            }
-            catch (Exception ex)
-            {
-                Program.cn.RollbackTrans();
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
-        }
-
-        public static string DesagruparPaqueteDelLote(int idPaquete)
-        {
-            ADODB.Command command = new ADODB.Command();
-            string sql = $"DELETE FROM PaquetesLotes WHERE IdPaquete = {idPaquete};";
-
-            try
-            {
-                command.ActiveConnection = Program.cn;
-                command.CommandText = sql;
-                Program.cn.BeginTrans();
-                command.Execute();
-                Program.cn.CommitTrans();
-                return JsonSerializer.Serialize(new { resultado = "true" });
-            }
-            catch (Exception ex)
-            {
-                Program.cn.RollbackTrans();
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
-        }
-        public static string ObtenerEstadoLote(int idLote)
-        {
-            ADODB.Recordset recordset = new ADODB.Recordset();
-            string sql = $"SELECT Estado FROM Lotes WHERE IdLote = {idLote};";
-
-            try
-            {
-                recordset.Open(sql, Program.cn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockReadOnly);
-                if (!recordset.EOF)
+                try
                 {
-                    string estado = recordset.Fields["Estado"].Value.ToString();
-                    return JsonSerializer.Serialize(new { resultado = "true", estado = estado });
+                    Program.cn.Execute(sqlUpdatePaquete, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
                 }
-                else
+                catch (Exception ex)
                 {
-                    return JsonSerializer.Serialize(new { resultado = "false", mensaje = "Lote no encontrado." });
+                    Console.WriteLine("Error al actualizar el estado del paquete: " + ex.Message);
+                    
+                }
+            }
+
+            return "Estado de paquetes actualizado";
+        }
+
+        public static string AsignarPaquetesANuevoLote(string paquetesLoteJSON)
+        {
+            var infoLote = JsonSerializer.Deserialize<EntidadesJSON.InfoLote>(paquetesLoteJSON);
+            int idAlmacen = infoLote.ID_Almacen;
+            List<int> idsPaquetes = infoLote.IDsPaquetes;
+            object filasAfectadas = null;
+            int nuevoLoteId = 0;
+
+            try
+            {
+                string sqlInsertLote = $"INSERT INTO Lotes (Fecha_Creacion, ID_Almacen, Estado) VALUES (NOW(), {idAlmacen}, 'En almacén');";
+                Program.cn.Execute(sqlInsertLote, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+
+                string sqlLastId = "SELECT LAST_INSERT_ID();";
+                Recordset rs = Program.cn.Execute(sqlLastId, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                if (!rs.EOF)
+                {
+                    nuevoLoteId = Convert.ToInt32(rs.Fields[0].Value);
+                }
+                rs.Close();
+
+                foreach (int idPaquete in idsPaquetes)
+                {
+                    string sqlUpdatePaquete = $"UPDATE Paquetes SET ID_Lote = {nuevoLoteId} WHERE ID_Paquete = {idPaquete}";
+                    Program.cn.Execute(sqlUpdatePaquete, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
                 }
             }
             catch (Exception ex)
             {
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
-        }
-        public static string CompletarEntrega(int idLote)
-        {
-            ADODB.Command command = new ADODB.Command();
-            string sql = $"UPDATE Lotes SET Estado = 'Entregado' WHERE IdLote = {idLote};";
-
-            try
-            {
-                command.ActiveConnection = Program.cn;
-                command.CommandText = sql;
-                Program.cn.BeginTrans();
-                command.Execute();
-                Program.cn.CommitTrans();
-                return JsonSerializer.Serialize(new { resultado = "true" });
-            }
-            catch (Exception ex)
-            {
-                Program.cn.RollbackTrans();
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
-        }
-        public static string AsignarEstadoLote(int idLote, string estado)
-        {
-            ADODB.Command command = new ADODB.Command();
-            string sql = $"UPDATE Lotes SET Estado = '{estado}' WHERE IdLote = {idLote};";
-
-            try
-            {
-                command.ActiveConnection = Program.cn;
-                command.CommandText = sql;
-                Program.cn.BeginTrans();
-                command.Execute();
-                Program.cn.CommitTrans();
-                return JsonSerializer.Serialize(new { resultado = "true" });
-            }
-            catch (Exception ex)
-            {
-                Program.cn.RollbackTrans();
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
-        }
-        public static string ActualizarEstadoPaquete(int idPaquete, int? idLote)
-        {
-            string estado;
-            if (idLote.HasValue)
-            {
-                estado = $"En lote {idLote.Value}";
-            }
-            else
-            {
-                estado = "En almacen"; // Si no proporcionamos un ID de lote, asumimos que el paquete está en almacen.
+                Console.WriteLine("Error al asignar paquetes al nuevo lote: " + ex.Message);
             }
 
-            ADODB.Command command = new ADODB.Command();
-            string sql = $"UPDATE Paquetes SET Estado = '{estado}' WHERE IdPaquete = {idPaquete};";
-
-            try
-            {
-                command.ActiveConnection = Program.cn;
-                command.CommandText = sql;
-                Program.cn.BeginTrans();
-                command.Execute();
-                Program.cn.CommitTrans();
-                return JsonSerializer.Serialize(new { resultado = "true" });
-            }
-            catch (Exception ex)
-            {
-                Program.cn.RollbackTrans();
-                return JsonSerializer.Serialize(new { resultado = "false", mensaje = ex.Message });
-            }
+            return $"Paquetes asignados al lote con ID {nuevoLoteId} correctamente.";
         }
-       */
     }
 }
+
+
+
+
+        
+
+        
+
+        
+    
+

@@ -49,6 +49,7 @@
             label1.TabIndex = 3;
             label1.Text = "Almacenes";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
             // label2
             // 

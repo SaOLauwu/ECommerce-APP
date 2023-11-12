@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.Json;
+
 
 namespace ProyectoFinal
 {
@@ -21,42 +23,36 @@ namespace ProyectoFinal
 
         public void CargarAlmacenes()
         {
-            String sql;
-            Object filasAfectadas;
-            ADODB.Recordset rs = new ADODB.Recordset();
-            if (Program.cn.State != 0)
+            string datosJson = API_Almacenes.CargarAlmacenes();
+            List<EntidadesJSON.Almacen> almacenes = JsonSerializer.Deserialize<List<EntidadesJSON.Almacen>>(datosJson);
+
+            DataTable dt = ConvertirADataTable(almacenes);
+            dataGridView1.DataSource = dt;
+        }
+
+        private DataTable ConvertirADataTable(List<EntidadesJSON.Almacen> almacenes)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID_Almacen", typeof(int));
+            dt.Columns.Add("Ubicacion", typeof(string));
+            dt.Columns.Add("Capacidad_Maxima", typeof(decimal));
+            dt.Columns.Add("Productos_Actuales", typeof(int));
+            dt.Columns.Add("Responsable", typeof(int));
+            dt.Columns.Add("IDRuta", typeof(int));
+
+            foreach (var almacen in almacenes)
             {
-                sql = "SELECT * FROM Almacenes";
-                try
-                {
-                    rs = Program.cn.Execute(sql, out filasAfectadas);
-                }
-                catch
-                {
-                    MessageBox.Show("Existe un error con la conexión al servidor. Intenta nuevamente");
-                }
-
-                DataTable dt = new DataTable();
-                for (int i = 0; i < rs.Fields.Count; i++)
-                {
-                    dt.Columns.Add(rs.Fields[i].Name);
-                }
-
-                while (!rs.EOF)
-                {
-                    DataRow row = dt.NewRow();
-                    for (int i = 0; i < rs.Fields.Count; i++)
-                    {
-                        row[i] = rs.Fields[i].Value;
-                    }
-                    dt.Rows.Add(row);
-                    rs.MoveNext();
-                }
-
-                dataGridView1.DataSource = dt;
-
-                rs.Close();
+                dt.Rows.Add(
+                    almacen.ID_Almacen,
+                    almacen.Ubicacion,
+                    almacen.Capacidad_Maxima,
+                    almacen.Productos_Actuales,
+                    almacen.Responsable,
+                    almacen.IDRuta
+                );
             }
+
+            return dt;
         }
 
         private void frmAlmacenes_Load(object sender, EventArgs e)
@@ -75,6 +71,11 @@ namespace ProyectoFinal
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

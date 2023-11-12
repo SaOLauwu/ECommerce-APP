@@ -9,18 +9,7 @@ namespace ProyectoFinal
 {
     internal class APIAut
     {
-        /* try
-             {
-                 Program.cn.Open("odbcproy", "admin", "admin");
-             }
-             catch
-             {
-                 MessageBox.Show("Existe un error con la conexion al servidor. Avise al administrador del programa.");
-             }
-             Program.cn.CursorLocation = ADODB.CursorLocationEnum.adUseClient;*/
-
-       
-
+        
         public static string Login (String empleado)//devolver string serializado
         {
             return CapaNegocios.Login(empleado);
