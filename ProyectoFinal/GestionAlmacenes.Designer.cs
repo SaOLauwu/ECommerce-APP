@@ -33,6 +33,7 @@
             btnLote = new Button();
             btnEstado = new Button();
             btnSalir = new Button();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -42,7 +43,7 @@
             label1.ImageAlign = ContentAlignment.MiddleLeft;
             label1.Location = new Point(29, 9);
             label1.Name = "label1";
-            label1.Size = new Size(902, 84);
+            label1.Size = new Size(902, 40);
             label1.TabIndex = 2;
             label1.Text = "Seleccione los paquetes y presione el botón correspondiente a la acción que desea realizar";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -85,12 +86,24 @@
             btnSalir.Text = "Cancelar";
             btnSalir.UseVisualStyleBackColor = true;
             // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ImageAlign = ContentAlignment.MiddleLeft;
+            label2.Location = new Point(256, 49);
+            label2.Name = "label2";
+            label2.Size = new Size(452, 29);
+            label2.TabIndex = 21;
+            label2.Text = "(Puede seleccionar varios paquetes manteniendo la tecla CTRL)";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // GestionAlmacenes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnSalir;
             ClientSize = new Size(967, 574);
+            Controls.Add(label2);
             Controls.Add(btnSalir);
             Controls.Add(btnLote);
             Controls.Add(btnEstado);
@@ -110,5 +123,6 @@
         public Button btnLote;
         public Button btnEstado;
         public Button btnSalir;
+        private Label label2;
     }
 }

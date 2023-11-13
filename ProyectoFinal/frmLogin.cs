@@ -11,7 +11,7 @@ namespace ProyectoFinal
         private void btnLogin_Click(object sender, EventArgs e)
         {
             int ci;
-            String nombre = txtboxNombre.Text;
+
             String pass = txtboxPass.Text;
             if (!int.TryParse(txtboxCi.Text, out ci))
             {
@@ -22,13 +22,13 @@ namespace ProyectoFinal
             {
                 EntidadesJSON.empleado empleado = new EntidadesJSON.empleado();
                 empleado.ci = ci;
-                empleado.nombre = nombre + ci;
+                empleado.nombre = "";
                 empleado.rol = "";
                 empleado.clave = pass;
                 empleado.resultado = "";
 
                 string empleadoserializado = JsonSerializer.Serialize(empleado);
-                String emp = APIAut.Login(empleadoserializado);
+                String emp = APIAut.Identificacion(empleadoserializado);
                 empleado = JsonSerializer.Deserialize<EntidadesJSON.empleado>(emp);
 
                 switch (empleado.resultado)
@@ -36,22 +36,12 @@ namespace ProyectoFinal
                     case "true":
                         if (Program.login(emp) == 0)
                         {
-                            if (empleado.clave == "contrasena")
-                            {
-                                CambioContrasena c = new CambioContrasena(empleado.nombre);
-                                c.ShowDialog();
-                                this.Close();
-                            }
-                            else
-                                this.Close();
-                            
+                         this.Close();
                         }
                         else
-                            MessageBox.Show("1Existe un error con el rol de este usuario. Avise a un administrador.");
+                            MessageBox.Show("Existe un error con el rol de este usuario. Avise a un administrador.");
                         break;
                     case "false":
-                        MessageBox.Show(empleado.nombre + empleado.clave);
-                        MessageBox.Show("Su combinación de nombre y contraseña es incorrecta.");
                         return;
                     default:
                         MessageBox.Show("error");

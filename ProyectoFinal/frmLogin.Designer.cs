@@ -35,8 +35,6 @@
             label3 = new Label();
             btnLogin = new Button();
             btnSalir = new Button();
-            label4 = new Label();
-            txtboxNombre = new TextBox();
             SuspendLayout();
             // 
             // label1
@@ -55,7 +53,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(186, 221);
+            label2.Location = new Point(186, 165);
             label2.Name = "label2";
             label2.Size = new Size(45, 32);
             label2.TabIndex = 2;
@@ -63,14 +61,14 @@
             // 
             // txtboxCi
             // 
-            txtboxCi.Location = new Point(357, 230);
+            txtboxCi.Location = new Point(357, 174);
             txtboxCi.Name = "txtboxCi";
             txtboxCi.Size = new Size(276, 23);
             txtboxCi.TabIndex = 3;
             // 
             // txtboxPass
             // 
-            txtboxPass.Location = new Point(357, 317);
+            txtboxPass.Location = new Point(357, 284);
             txtboxPass.Name = "txtboxPass";
             txtboxPass.PasswordChar = '*';
             txtboxPass.Size = new Size(276, 23);
@@ -80,7 +78,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(97, 308);
+            label3.Location = new Point(97, 275);
             label3.Name = "label3";
             label3.RightToLeft = RightToLeft.Yes;
             label3.Size = new Size(134, 32);
@@ -107,24 +105,6 @@
             btnSalir.UseVisualStyleBackColor = true;
             btnSalir.Click += btnSalir_Click;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(57, 131);
-            label4.Name = "label4";
-            label4.Size = new Size(174, 32);
-            label4.TabIndex = 8;
-            label4.Text = "Primer nombre";
-            label4.Click += label4_Click;
-            // 
-            // txtboxNombre
-            // 
-            txtboxNombre.Location = new Point(357, 142);
-            txtboxNombre.Name = "txtboxNombre";
-            txtboxNombre.Size = new Size(276, 23);
-            txtboxNombre.TabIndex = 9;
-            // 
             // frmLogin
             // 
             AcceptButton = btnLogin;
@@ -133,8 +113,6 @@
             CancelButton = btnSalir;
             ClientSize = new Size(823, 484);
             ControlBox = false;
-            Controls.Add(txtboxNombre);
-            Controls.Add(label4);
             Controls.Add(btnSalir);
             Controls.Add(btnLogin);
             Controls.Add(txtboxPass);
@@ -158,7 +136,5 @@
         public Button btnLogin;
         public Button btnSalir;
         public TextBox txtboxCi;
-        private Label label4;
-        public TextBox txtboxNombre;
     }
 }

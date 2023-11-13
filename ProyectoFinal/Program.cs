@@ -31,7 +31,7 @@ namespace ProyectoFinal
         public static byte login(string empleado)
         {
             EntidadesJSON.empleado a = JsonSerializer.Deserialize<EntidadesJSON.empleado>(empleado);
-            String empdes = APIAut.Identificacion(empleado);
+            String empdes = APIAut.Login(empleado);
             a = JsonSerializer.Deserialize<EntidadesJSON.empleado>(empdes);
 
                     switch (a.rol)

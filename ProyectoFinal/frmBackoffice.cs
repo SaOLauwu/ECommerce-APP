@@ -19,7 +19,7 @@ namespace ProyectoFinal
 
         private void btnAlta_Click(object sender, EventArgs e)
         {
-            AltaUsuario a = new AltaUsuario();
+            frmAltaUsuario a = new frmAltaUsuario();
             a.ShowDialog();
         }
 

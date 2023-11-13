@@ -12,11 +12,10 @@ namespace ProyectoFinal
 {
     public partial class CambioContrasena : Form
     {
-        private string nombre;
         private int ci;
-        public CambioContrasena(string nom)
+        public CambioContrasena(int ci)
         {
-            this.nombre = nom;
+            this.ci = ci;
             InitializeComponent();
         }
 
@@ -26,7 +25,7 @@ namespace ProyectoFinal
             string sql;
             if(Program.cn.State != 0)
             {
-                sql = "ALTER USER '" + nombre + "'@'%' IDENTIFIED BY '" + txtPass.Text + "';";
+                sql = "UPDATE Empleados SET Pass = '" + txtPass.Text + "' WHERE Ci = '" + ci + "';";
                 try
                 {
                     Program.cn.Execute(sql, out filasAfectadas);

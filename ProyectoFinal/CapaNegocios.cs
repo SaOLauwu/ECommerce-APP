@@ -12,45 +12,126 @@ namespace ProyectoFinal
         public static string Login(string user)
         {
             empleado empleadoo = JsonSerializer.Deserialize<empleado>(user);
+            String rol = empleadoo.rol;
             if (Program.cn.State != 1)
             {
-                try
+                if (rol.Equals("Administrativo"))
                 {
-                    Program.cn.Open("database", empleadoo.nombre, empleadoo.clave);
-                }
-                catch
-                {
-                    empleadoo.resultado = "false";
+                    try
+                    {
+                        Program.cn.Open("database", "administrador", "admin123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
+                    empleadoo.rol = "Administrativo";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
-                empleadoo.resultado = "true";
-                return JsonSerializer.Serialize(empleadoo);
+                else if (rol.Equals("Almacenero"))
+                {
+                    try
+                    {
+                        Program.cn.Open("database", "almacenero", "almacenero123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
+                    empleadoo.rol = "Almacenero";
+                    return JsonSerializer.Serialize(empleadoo);
+                }else if (rol.Equals("Chofer"))
+                {
+                    try
+                    {
+                        Program.cn.Open("database", "chofer", "chofer123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
+                    empleadoo.rol = "Chofer";
+                    return JsonSerializer.Serialize(empleadoo);
+                }
+                return JsonSerializer.Serialize(new { resultado = "error" });
+
             }
             else
             {
                 Program.cn.Close();
-                try
+                if (rol.Equals("Administrativo"))
                 {
-                    Program.cn.Open("database", empleadoo.nombre, empleadoo.clave);
-                }
-                catch
-                {
-                    empleadoo.resultado = "false";
+                    try
+                    {
+                        Program.cn.Open("database", "administrador", "admin123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
-
-                return identificacion(JsonSerializer.Serialize(empleadoo));
+                else if (rol.Equals("Almacenero"))
+                {
+                    try
+                    {
+                        Program.cn.Open("database", "almacenero", "almacenero123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
+                    return JsonSerializer.Serialize(empleadoo);
+                }
+                else if (rol.Equals("Chofer"))
+                {
+                    try
+                    {
+                        Program.cn.Open("database", "chofer", "chofer123");
+                    }
+                    catch
+                    {
+                        empleadoo.resultado = "false";
+                        return JsonSerializer.Serialize(empleadoo);
+                    }
+                    Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+                    empleadoo.resultado = "true";
+                    return JsonSerializer.Serialize(empleadoo);
+                }
+                return "error";
             }
         }
 
         public static string identificacion(string emp)
         {
+            try
+            {
+                Program.cn.Open("database", "administrador", "admin123");
+            }
+            catch
+            {
+                return "error";
+            }
+            Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
             empleado a = JsonSerializer.Deserialize<empleado>(emp);
-
+            
             Recordset rs = new Recordset();
-            string sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci;
+            string sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci + " AND Pass = '" + a.clave + "'";
             Object filasAfectadas;
             try
             {
@@ -58,19 +139,28 @@ namespace ProyectoFinal
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Ha ocurrido un error con la conexión al servidor, revise su conexión a internet o avise a un administrador." + ex.Message);
                 a.resultado = "false";
+                
                 return JsonSerializer.Serialize(a);
             }
-
+            
             if (rs.RecordCount > 0)
             {
+                
                 String rol = Convert.ToString(rs.Fields[0].Value);
                 a.rol = rol;
-                return JsonSerializer.Serialize(a);
+                a.resultado = "true";
+                if (a.clave == "contrasena")
+                {
+                    CambioContrasena c = new CambioContrasena(a.ci);
+                    c.ShowDialog();
+                }
+                return Login(JsonSerializer.Serialize(a));
             }
             else
             {
+                MessageBox.Show("Combinación de cédula de identidad y contraseña incorrecta.");
                 a.resultado = "false";
                 return JsonSerializer.Serialize(a);
             }
@@ -157,29 +247,26 @@ namespace ProyectoFinal
             {
                 string nuevoEstado = paquete.Estado;
                 int idPaquete = paquete.ID_Paquete;
-                string sqlUpdatePaquete;
-
-                if (nuevoEstado != "En almacén")
-                {
-                    sqlUpdatePaquete = $"UPDATE Paquetes SET Estado = '{nuevoEstado}', ID_Almacen = NULL WHERE ID_Paquete = {idPaquete}";
-                }
-                else
-                {
-                    sqlUpdatePaquete = $"UPDATE Paquetes SET Estado = '{nuevoEstado}' WHERE ID_Paquete = {idPaquete}";
-                }
+                string sqlUpdatePaquete = $"UPDATE Paquetes SET Estado = '{nuevoEstado}' WHERE ID_Paquete = {idPaquete}";
 
                 try
                 {
                     Program.cn.Execute(sqlUpdatePaquete, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                    // Si el paquete se envía o se entrega, elimínelo del lote actual.
+                    if (nuevoEstado == "En viaje hacia destino final" || nuevoEstado == "Entregado")
+                    {
+                        string sqlDeleteFromLote = $"DELETE FROM Paquete_Lote WHERE ID_Paquete = {idPaquete}";
+                        Program.cn.Execute(sqlDeleteFromLote, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                    }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine("Error al actualizar el estado del paquete: " + ex.Message);
-                    
+                    return "Error al actualizar el estado de los paquetes.";
                 }
             }
 
-            return "Estado de paquetes actualizado";
+            return "Estado de paquetes actualizado correctamente.";
         }
 
         public static string AsignarPaquetesANuevoLote(string paquetesLoteJSON)
@@ -207,15 +294,20 @@ namespace ProyectoFinal
                 {
                     string sqlUpdatePaquete = $"UPDATE Paquetes SET ID_Lote = {nuevoLoteId} WHERE ID_Paquete = {idPaquete}";
                     Program.cn.Execute(sqlUpdatePaquete, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                    // Adicionalmente, insertar en Paquete_Lote.
+                    string sqlInsertPaqueteLote = $"INSERT INTO Paquete_Lote (ID_Paquete, ID_Lote) VALUES ({idPaquete}, {nuevoLoteId})";
+                    Program.cn.Execute(sqlInsertPaqueteLote, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al asignar paquetes al nuevo lote: " + ex.Message);
+                return "Error al asignar paquetes al lote.";
             }
 
             return $"Paquetes asignados al lote con ID {nuevoLoteId} correctamente.";
         }
+
     }
 }
 
