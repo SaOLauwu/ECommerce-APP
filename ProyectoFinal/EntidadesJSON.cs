@@ -12,8 +12,6 @@ namespace ProyectoFinal
         internal class empleado
         {
             public int ci { get; set; }
-            public String nombre { get; set; }
-            public String apellido { get; set; }
             public string rol { get; set; }
             public string clave { get; set; }
             public string resultado { get; set; }
@@ -58,6 +56,13 @@ namespace ProyectoFinal
         {
             public String sql { get; set; }
         }
-        
+
+        internal class Transporte
+        {
+            public string Matricula { get; set; }
+            public string Tipo { get; set; }
+            public string Estado { get; set; }
+        }
+
     }
 }

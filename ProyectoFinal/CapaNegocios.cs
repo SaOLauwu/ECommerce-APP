@@ -62,7 +62,9 @@ namespace ProyectoFinal
                     empleadoo.rol = "Chofer";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                return JsonSerializer.Serialize(new { resultado = "error" });
+                empleadoo.rol = "null";
+                empleadoo.resultado="null";
+                return JsonSerializer.Serialize(empleadoo);
 
             }
             else
@@ -113,22 +115,44 @@ namespace ProyectoFinal
                     empleadoo.resultado = "true";
                     return JsonSerializer.Serialize(empleadoo);
                 }
-                return "error";
+                empleadoo.rol = "null";
+                empleadoo.resultado = "null";
+                return JsonSerializer.Serialize(empleadoo);
             }
         }
 
         public static string identificacion(string emp)
         {
-            try
-            {
-                Program.cn.Open("database", "administrador", "admin123");
-            }
-            catch
-            {
-                return "error";
-            }
-            Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
             empleado a = JsonSerializer.Deserialize<empleado>(emp);
+            if (Program.cn.State != 1)
+            {
+
+                try
+                {
+                    Program.cn.Open("database", "administrador", "admin123");
+                }
+                catch
+                {
+                    a.resultado = "false";
+                    return JsonSerializer.Serialize(a);
+                }
+            }
+            else
+            {
+                Program.cn.Close();
+                try
+                {
+                    Program.cn.Open("database", "administrador", "admin123");
+                }
+                catch
+                {
+                    a.resultado = "false";
+                    return JsonSerializer.Serialize(a);
+                }
+            }
+
+                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+            
             
             Recordset rs = new Recordset();
             string sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci + " AND Pass = '" + a.clave + "'";
@@ -141,7 +165,9 @@ namespace ProyectoFinal
             {
                 MessageBox.Show("Ha ocurrido un error con la conexión al servidor, revise su conexión a internet o avise a un administrador." + ex.Message);
                 a.resultado = "false";
-                
+                a.rol = "null";
+
+
                 return JsonSerializer.Serialize(a);
             }
             
@@ -159,8 +185,8 @@ namespace ProyectoFinal
                 return Login(JsonSerializer.Serialize(a));
             }
             else
-            {
-                MessageBox.Show("Combinación de cédula de identidad y contraseña incorrecta.");
+            { 
+                a.rol = "null";
                 a.resultado = "false";
                 return JsonSerializer.Serialize(a);
             }
@@ -307,6 +333,37 @@ namespace ProyectoFinal
 
             return $"Paquetes asignados al lote con ID {nuevoLoteId} correctamente.";
         }
+
+        public static string ObtenerTransportesDisponibles(string sentenciaSerializada)
+        {
+            var sentencia = JsonSerializer.Deserialize<EntidadesJSON.sentenciaSQL>(sentenciaSerializada);
+            List<EntidadesJSON.Transporte> transportes = new List<EntidadesJSON.Transporte>();
+            Recordset rs = new Recordset();
+            object filasAfectadas;
+
+            try
+            {
+                rs = Program.cn.Execute(sentencia.sql, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                while (!rs.EOF)
+                {
+                    transportes.Add(new EntidadesJSON.Transporte
+                    {
+                        Matricula = Convert.ToString(rs.Fields["Matricula"].Value),
+                        Tipo = Convert.ToString(rs.Fields["Tipo"].Value),
+                        Estado = Convert.ToString(rs.Fields["Estado"].Value),
+                    });
+                    rs.MoveNext();
+                }
+                rs.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en CapaNegocios - ObtenerTransportesDisponibles: " + ex.Message);
+            }
+
+            return JsonSerializer.Serialize(transportes);
+        }
+
 
     }
 }

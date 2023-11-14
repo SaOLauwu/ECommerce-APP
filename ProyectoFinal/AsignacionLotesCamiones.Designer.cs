@@ -28,58 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
             dataGridView1 = new DataGridView();
-            label1 = new Label();
+            label2 = new Label();
+            btnComenzar = new Button();
+            btnSalir = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
-            // button1
-            // 
-            button1.Location = new Point(12, 387);
-            button1.Name = "button1";
-            button1.Size = new Size(168, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Comenzar entrega";
-            button1.UseVisualStyleBackColor = true;
-            // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(12, 93);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(452, 276);
+            dataGridView1.Size = new Size(747, 356);
             dataGridView1.TabIndex = 1;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // label1
+            // label2
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 64);
-            label1.Name = "label1";
-            label1.Size = new Size(207, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Seleccione lotes transportar en su ruta";
+            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ImageAlign = ContentAlignment.MiddleLeft;
+            label2.Location = new Point(164, 25);
+            label2.Name = "label2";
+            label2.Size = new Size(433, 47);
+            label2.TabIndex = 4;
+            label2.Text = "Seleccione los lotes a trasladar en su ruta: ";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            label2.Click += label2_Click;
+            // 
+            // btnComenzar
+            // 
+            btnComenzar.Location = new Point(193, 471);
+            btnComenzar.Name = "btnComenzar";
+            btnComenzar.Size = new Size(165, 48);
+            btnComenzar.TabIndex = 8;
+            btnComenzar.Text = "Comenzar ruta";
+            btnComenzar.UseVisualStyleBackColor = true;
+            btnComenzar.Click += btnComenzar_Click;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Location = new Point(395, 471);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(165, 48);
+            btnSalir.TabIndex = 9;
+            btnSalir.Text = "Cancelar";
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
             // 
             // AsignacionLotesCamiones
             // 
+            AcceptButton = btnComenzar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(673, 450);
-            Controls.Add(label1);
+            CancelButton = btnSalir;
+            ClientSize = new Size(771, 541);
+            Controls.Add(btnSalir);
+            Controls.Add(btnComenzar);
+            Controls.Add(label2);
             Controls.Add(dataGridView1);
-            Controls.Add(button1);
             Name = "AsignacionLotesCamiones";
             Text = "AsignacionLotesCamiones";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
         private DataGridView dataGridView1;
-        private Label label1;
+        private Label label2;
+        public Button btnComenzar;
+        public Button btnSalir;
     }
 }

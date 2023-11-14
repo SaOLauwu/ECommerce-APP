@@ -12,9 +12,14 @@ namespace ProyectoFinal
 {
     public partial class AsignacionPaquetesCamionetas : Form
     {
-        public AsignacionPaquetesCamionetas()
+        public AsignacionPaquetesCamionetas(string matricula)
         {
             InitializeComponent();
+        }
+
+        private void btnComenzar_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

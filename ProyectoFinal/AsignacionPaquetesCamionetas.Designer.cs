@@ -28,58 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
+            btnSalir = new Button();
+            btnComenzar = new Button();
+            label2 = new Label();
             dataGridView1 = new DataGridView();
-            button1 = new Button();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
+            // btnSalir
+            // 
+            btnSalir.Location = new Point(390, 452);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(165, 48);
+            btnSalir.TabIndex = 13;
+            btnSalir.Text = "Cancelar";
+            btnSalir.UseVisualStyleBackColor = true;
+            // 
+            // btnComenzar
+            // 
+            btnComenzar.Location = new Point(188, 452);
+            btnComenzar.Name = "btnComenzar";
+            btnComenzar.Size = new Size(165, 48);
+            btnComenzar.TabIndex = 12;
+            btnComenzar.Text = "Comenzar ruta";
+            btnComenzar.UseVisualStyleBackColor = true;
+            btnComenzar.Click += btnComenzar_Click;
+            // 
+            // label2
+            // 
+            label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label2.ImageAlign = ContentAlignment.MiddleLeft;
+            label2.Location = new Point(157, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(433, 47);
+            label2.TabIndex = 11;
+            label2.Text = "Seleccione los paquetes a enviar en su ruta: ";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(33, 98);
+            dataGridView1.Location = new Point(7, 74);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(418, 279);
-            dataGridView1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(33, 383);
-            button1.Name = "button1";
-            button1.Size = new Size(145, 23);
-            button1.TabIndex = 1;
-            button1.Text = "Comenzar entrega";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(33, 65);
-            label1.Name = "label1";
-            label1.Size = new Size(228, 15);
-            label1.TabIndex = 2;
-            label1.Text = "Seleccione paquetes a enviar en su ciudad";
+            dataGridView1.Size = new Size(747, 356);
+            dataGridView1.TabIndex = 10;
             // 
             // AsignacionPaquetesCamionetas
             // 
+            AcceptButton = btnComenzar;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(489, 450);
-            Controls.Add(label1);
-            Controls.Add(button1);
+            CancelButton = btnSalir;
+            ClientSize = new Size(765, 511);
+            Controls.Add(btnSalir);
+            Controls.Add(btnComenzar);
+            Controls.Add(label2);
             Controls.Add(dataGridView1);
             Name = "AsignacionPaquetesCamionetas";
             Text = "AsignacionPaquetesCamionetas";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
+        public Button btnSalir;
+        public Button btnComenzar;
+        private Label label2;
         private DataGridView dataGridView1;
-        private Button button1;
-        private Label label1;
     }
 }
