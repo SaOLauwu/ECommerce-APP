@@ -21,6 +21,12 @@ namespace ProyectoFinal
             return CapaNegocios.ObtenerAlmacenes(sentenciaSerializada);
         }
 
+        public static string CrearPaquete(EntidadesJSON.Paquete paquete)
+        {
+            string paqueteJSON = JsonSerializer.Serialize(paquete);
+            return CapaNegocios.InsertarPaquete(paqueteJSON);
+        }
+
         public static string CambiarEstadoPaquetes(List<EntidadesJSON.Paquete> paquetes)
         {
             string paquetesJSON = JsonSerializer.Serialize(paquetes);

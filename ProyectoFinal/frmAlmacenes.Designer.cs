@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAlmacenes));
             label1 = new Label();
             label2 = new Label();
+            dataGridView1 = new DataGridView();
+            btnLogin = new Button();
             comboBox1 = new ComboBox();
             label6 = new Label();
-            btnLogin = new Button();
-            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -61,6 +61,26 @@
             label2.TabIndex = 5;
             label2.Text = "Haga doble click sobre uno de los almacenes para gestionar sus productos:";
             // 
+            // dataGridView1
+            // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(26, 133);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(731, 384);
+            dataGridView1.TabIndex = 24;
+            // 
+            // btnLogin
+            // 
+            btnLogin.Location = new Point(561, 535);
+            btnLogin.Name = "btnLogin";
+            btnLogin.Size = new Size(155, 35);
+            btnLogin.TabIndex = 23;
+            btnLogin.Text = "Filtrar";
+            btnLogin.UseVisualStyleBackColor = true;
+            btnLogin.Click += btnLogin_Click;
+            // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
@@ -80,26 +100,6 @@
             label6.TabIndex = 15;
             label6.Text = "Filtrar por departamento:";
             label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnLogin
-            // 
-            btnLogin.Location = new Point(561, 535);
-            btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(155, 35);
-            btnLogin.TabIndex = 23;
-            btnLogin.Text = "Filtrar";
-            btnLogin.UseVisualStyleBackColor = true;
-            btnLogin.Click += btnLogin_Click;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(26, 133);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowTemplate.Height = 25;
-            dataGridView1.Size = new Size(731, 384);
-            dataGridView1.TabIndex = 24;
             // 
             // frmAlmacenes
             // 
@@ -125,9 +125,9 @@
 
         private Label label1;
         private Label label2;
+        private DataGridView dataGridView1;
+        public Button btnLogin;
         private ComboBox comboBox1;
         private Label label6;
-        public Button btnLogin;
-        private DataGridView dataGridView1;
     }
 }

@@ -29,6 +29,7 @@ namespace ProyectoFinal
 
         internal class Paquete
         {
+            public int Ci { get; set; }
             public int ID_Paquete { get; set; }
             public string Descripcion { get; set; }
             public decimal Peso { get; set; }

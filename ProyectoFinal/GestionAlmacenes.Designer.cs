@@ -34,6 +34,7 @@
             btnEstado = new Button();
             btnSalir = new Button();
             label2 = new Label();
+            btnNuevoPaquete = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -57,6 +58,7 @@
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(902, 387);
             dataGridView1.TabIndex = 3;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // btnLote
             // 
@@ -80,7 +82,7 @@
             // 
             // btnSalir
             // 
-            btnSalir.Location = new Point(794, 518);
+            btnSalir.Location = new Point(794, 565);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(161, 44);
             btnSalir.TabIndex = 20;
@@ -98,12 +100,23 @@
             label2.Text = "(Puede seleccionar varios paquetes manteniendo la tecla CTRL)";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnNuevoPaquete
+            // 
+            btnNuevoPaquete.Location = new Point(29, 565);
+            btnNuevoPaquete.Name = "btnNuevoPaquete";
+            btnNuevoPaquete.Size = new Size(161, 44);
+            btnNuevoPaquete.TabIndex = 23;
+            btnNuevoPaquete.Text = "Ingresar nuevo paquete";
+            btnNuevoPaquete.UseVisualStyleBackColor = true;
+            btnNuevoPaquete.Click += btnNuevoPaquete_Click;
+            // 
             // GestionAlmacenes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnSalir;
-            ClientSize = new Size(967, 574);
+            ClientSize = new Size(967, 621);
+            Controls.Add(btnNuevoPaquete);
             Controls.Add(label2);
             Controls.Add(btnSalir);
             Controls.Add(btnLote);
@@ -125,5 +138,6 @@
         public Button btnEstado;
         public Button btnSalir;
         private Label label2;
+        public Button btnNuevoPaquete;
     }
 }

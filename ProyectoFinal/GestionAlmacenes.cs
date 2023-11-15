@@ -93,5 +93,24 @@ namespace ProyectoFinal
         {
             CargarPaquetes();
         }
+
+        private void btnNuevoPaquete_Click(object sender, EventArgs e)
+        {
+            using (var formIngresarPaquete = new FrmIngresarPaquetes(this.idAlmacen))
+            {
+                formIngresarPaquete.ShowDialog();
+                CargarPaquetes();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

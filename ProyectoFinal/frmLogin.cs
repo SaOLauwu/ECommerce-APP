@@ -102,7 +102,9 @@ namespace ProyectoFinal
 
         private void btnCliente_Click(object sender, EventArgs e)
         {
-
+            this.Hide(); // Oculta el frmLogin
+            Program.principal.MostrarFrmSeguimiento(); // Método que agregaremos en frmPrincipal
+            Program.principal.Show(); // Muestra el frmPrincipal
         }
     }
 }

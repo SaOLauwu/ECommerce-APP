@@ -30,10 +30,11 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmSeguimiento));
             label1 = new Label();
-            button1 = new Button();
-            textBox1 = new TextBox();
+            btnBuscar = new Button();
+            txtboxCi = new TextBox();
             label2 = new Label();
-            listBox1 = new ListBox();
+            dataGridView1 = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -47,56 +48,59 @@
             label1.TabIndex = 1;
             label1.Text = "Seguimiento de envíos.";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
             // 
-            // button1
+            // btnBuscar
             // 
-            button1.Location = new Point(630, 125);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 10;
-            button1.Text = "Buscar";
-            button1.UseVisualStyleBackColor = true;
+            btnBuscar.Location = new Point(630, 125);
+            btnBuscar.Name = "btnBuscar";
+            btnBuscar.Size = new Size(75, 23);
+            btnBuscar.TabIndex = 10;
+            btnBuscar.Text = "Buscar";
+            btnBuscar.UseVisualStyleBackColor = true;
+            btnBuscar.Click += btnBuscar_Click;
             // 
-            // textBox1
+            // txtboxCi
             // 
-            textBox1.Location = new Point(456, 125);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(118, 23);
-            textBox1.TabIndex = 9;
-            textBox1.Text = "ID envío";
+            txtboxCi.Location = new Point(489, 127);
+            txtboxCi.Name = "txtboxCi";
+            txtboxCi.Size = new Size(118, 23);
+            txtboxCi.TabIndex = 9;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(62, 127);
+            label2.Location = new Point(32, 125);
             label2.Name = "label2";
-            label2.Size = new Size(363, 21);
+            label2.Size = new Size(451, 21);
             label2.TabIndex = 8;
-            label2.Text = "Ingrese el ID de su envío para obtener información:";
+            label2.Text = "Ingrese su cédula de identidad para ver el estado de su paquete:";
             // 
-            // listBox1
+            // dataGridView1
             // 
-            listBox1.FormattingEnabled = true;
-            listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(53, 189);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(682, 379);
-            listBox1.TabIndex = 11;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(42, 189);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.Size = new Size(695, 378);
+            dataGridView1.TabIndex = 11;
             // 
             // FrmSeguimiento
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(784, 620);
-            Controls.Add(listBox1);
-            Controls.Add(button1);
-            Controls.Add(textBox1);
+            Controls.Add(dataGridView1);
+            Controls.Add(btnBuscar);
+            Controls.Add(txtboxCi);
             Controls.Add(label2);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FrmSeguimiento";
             Text = "FrmProductos";
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -104,9 +108,9 @@
         #endregion
 
         private Label label1;
-        private Button button1;
-        private TextBox textBox1;
+        private Button btnBuscar;
+        private TextBox txtboxCi;
         private Label label2;
-        private ListBox listBox1;
+        private DataGridView dataGridView1;
     }
 }

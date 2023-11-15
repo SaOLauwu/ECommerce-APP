@@ -196,6 +196,16 @@ namespace ProyectoFinal
             }
         }
 
+        public static bool ExisteCliente(int ci)
+        {
+            object filasAfectadas;
+            string sql = $"SELECT COUNT(1) FROM Clientes WHERE Ci = {ci}";
+            object result = Program.cn.Execute(sql, out filasAfectadas).Fields[0].Value;
+            int count = Convert.ToInt32(result);
+            return count > 0;
+        }
+
+
         public static string ObtenerAlmacenes(string sentenciaSerializada)
         {
             EntidadesJSON.sentenciaSQL sentencia = JsonSerializer.Deserialize<EntidadesJSON.sentenciaSQL>(sentenciaSerializada);
@@ -215,8 +225,6 @@ namespace ProyectoFinal
                     {
                         ID_Almacen = Convert.ToInt32(rs.Fields["ID_Almacen"].Value),
                         Ubicacion = Convert.ToString(rs.Fields["Ubicacion"].Value),
-                        Capacidad_Maxima = Convert.ToDecimal(rs.Fields["Capacidad_Maxima"].Value),
-                        Productos_Actuales = Convert.ToInt32(rs.Fields["Productos_Actuales"].Value),
                         Responsable = rs.Fields["Responsable"].Value is DBNull ? (int?)null : Convert.ToInt32(rs.Fields["Responsable"].Value),
                         IDRuta = rs.Fields["IDRuta"].Value is DBNull ? (int?)null : Convert.ToInt32(rs.Fields["IDRuta"].Value)
                     };
@@ -532,5 +540,61 @@ namespace ProyectoFinal
             }
         }
 
+        public static DataTable ObtenerDatosSeguimiento(string sql)
+        {
+            DataTable dataTable = new DataTable();
+            Recordset rs = new Recordset();
+            object filasAfectadas;
+
+            try
+            {
+                Program.cn.Open("database", "chofer", "chofer123"); // Asegúrese de abrir la conexión
+                Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
+
+                rs.Open(sql, Program.cn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, (int)ADODB.CommandTypeEnum.adCmdText);
+
+                // Agregar columnas al DataTable
+                for (int i = 0; i < rs.Fields.Count; i++)
+                {
+                    dataTable.Columns.Add(rs.Fields[i].Name, typeof(string)); 
+                }
+
+                while (!rs.EOF)
+                {
+                    DataRow row = dataTable.NewRow();
+                    for (int i = 0; i < rs.Fields.Count; i++)
+                    {
+                        row[i] = rs.Fields[i].Value.ToString();
+                    }
+                    dataTable.Rows.Add(row);
+                    rs.MoveNext();
+                }
+                rs.Close();
+                Program.cn.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en CapaNegocios - ObtenerDatos: " + ex.Message);
+            
+            }
+            return dataTable;
+        }
+
+        public static string InsertarPaquete(string paqueteJSON)
+        {
+            var paquete = JsonSerializer.Deserialize<EntidadesJSON.Paquete>(paqueteJSON);
+            string sqlInsert = $@"INSERT INTO Paquetes (Descripcion, Peso, Estado, Ci, ID_Almacen) 
+                                  VALUES ('{paquete.Descripcion}', {paquete.Peso}, '{paquete.Estado}', {paquete.Ci}, {paquete.ID_Almacen});";
+            object filasAfectadas;
+            try
+            {
+                Program.cn.Execute(sqlInsert, out filasAfectadas);
+                return "Paquete creado con éxito.";
+            }
+            catch (Exception ex)
+            {
+                return "Error al crear el paquete: " + ex.Message;
+            }
+        }
     }
 }

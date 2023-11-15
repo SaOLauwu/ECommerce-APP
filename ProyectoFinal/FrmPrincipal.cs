@@ -20,7 +20,11 @@ namespace ProyectoFinal
             InitializeComponent();
         }
 
+        public void MostrarFrmSeguimiento()
+        {
+            FormShow(new FrmSeguimiento());
 
+        }
         private void FormShow(Form frm)
         {
             ActiveFormClose();

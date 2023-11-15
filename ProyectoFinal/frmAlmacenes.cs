@@ -35,8 +35,6 @@ namespace ProyectoFinal
             DataTable dt = new DataTable();
             dt.Columns.Add("ID_Almacen", typeof(int));
             dt.Columns.Add("Ubicacion", typeof(string));
-            dt.Columns.Add("Capacidad_Maxima", typeof(decimal));
-            dt.Columns.Add("Productos_Actuales", typeof(int));
             dt.Columns.Add("Responsable", typeof(int));
             dt.Columns.Add("IDRuta", typeof(int));
 
@@ -45,8 +43,6 @@ namespace ProyectoFinal
                 dt.Rows.Add(
                     almacen.ID_Almacen,
                     almacen.Ubicacion,
-                    almacen.Capacidad_Maxima,
-                    almacen.Productos_Actuales,
                     almacen.Responsable,
                     almacen.IDRuta
                 );
