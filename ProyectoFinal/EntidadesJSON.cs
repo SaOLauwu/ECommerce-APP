@@ -43,6 +43,7 @@ namespace ProyectoFinal
             public DateTime Fecha_Creacion { get; set; }
             public int ID_Almacen { get; set; }
             public string Estado { get; set; }
+            public int AlmacenDestino { get; set; }
         }
 
         internal class InfoLote
@@ -63,6 +64,18 @@ namespace ProyectoFinal
             public string Tipo { get; set; }
             public string Estado { get; set; }
         }
+
+        public class Ruta
+        {
+            public string Destino { get; set; }
+            public decimal DuracionEstimada { get; set; }
+        }
+
+        public class SesionUsuario
+        {
+            public static int CiChofer { get; set; }
+        }
+
 
     }
 }

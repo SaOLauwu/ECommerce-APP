@@ -52,7 +52,7 @@ namespace ProyectoFinal
                 switch (empleado.resultado)
                 {
                     case "true":
-                        // Intenta iniciar sesión y cierra el formulario si tiene éxito
+                        EntidadesJSON.SesionUsuario.CiChofer = empleado.ci;
                         if (Program.login(emp) == 0)
                         {
                             this.Close();
@@ -96,6 +96,11 @@ namespace ProyectoFinal
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCliente_Click(object sender, EventArgs e)
         {
 
         }

@@ -32,6 +32,8 @@
             label2 = new Label();
             btnComenzar = new Button();
             btnSalir = new Button();
+            button1 = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -45,18 +47,18 @@
             dataGridView1.Size = new Size(747, 356);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellDoubleClick += dataGridView1_CellDoubleClick;
             // 
             // label2
             // 
             label2.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
             label2.ImageAlign = ContentAlignment.MiddleLeft;
-            label2.Location = new Point(164, 25);
+            label2.Location = new Point(162, 9);
             label2.Name = "label2";
             label2.Size = new Size(433, 47);
             label2.TabIndex = 4;
             label2.Text = "Seleccione los lotes a trasladar en su ruta: ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
-            label2.Click += label2_Click;
             // 
             // btnComenzar
             // 
@@ -70,13 +72,33 @@
             // 
             // btnSalir
             // 
-            btnSalir.Location = new Point(395, 471);
+            btnSalir.Location = new Point(627, 489);
             btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(165, 48);
+            btnSalir.Size = new Size(132, 40);
             btnSalir.TabIndex = 9;
             btnSalir.Text = "Cancelar";
             btnSalir.UseVisualStyleBackColor = true;
-            btnSalir.Click += btnSalir_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(394, 471);
+            button1.Name = "button1";
+            button1.Size = new Size(165, 48);
+            button1.TabIndex = 10;
+            button1.Text = "Deseleccionar lote";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // label1
+            // 
+            label1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.ImageAlign = ContentAlignment.MiddleLeft;
+            label1.Location = new Point(101, 56);
+            label1.Name = "label1";
+            label1.Size = new Size(555, 29);
+            label1.TabIndex = 22;
+            label1.Text = "(Da doble click sobre uno de los lotes para ver los lotes que comparten ruta)";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // AsignacionLotesCamiones
             // 
@@ -85,12 +107,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnSalir;
             ClientSize = new Size(771, 541);
+            Controls.Add(label1);
+            Controls.Add(button1);
             Controls.Add(btnSalir);
             Controls.Add(btnComenzar);
             Controls.Add(label2);
             Controls.Add(dataGridView1);
             Name = "AsignacionLotesCamiones";
             Text = "AsignacionLotesCamiones";
+            Load += AsignacionLotesCamiones_Load_1;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
@@ -100,5 +125,7 @@
         private Label label2;
         public Button btnComenzar;
         public Button btnSalir;
+        public Button button1;
+        private Label label1;
     }
 }

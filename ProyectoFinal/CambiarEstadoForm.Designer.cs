@@ -37,7 +37,7 @@
             // comboBoxEstados
             // 
             comboBoxEstados.FormattingEnabled = true;
-            comboBoxEstados.Items.AddRange(new object[] { "En almacen", "En viaje", "En viaje hacia destino final", "Entregado" });
+            comboBoxEstados.Items.AddRange(new object[] { "En almacén", "En viaje", "En viaje hacia destino final", "Entregado" });
             comboBoxEstados.Location = new Point(34, 167);
             comboBoxEstados.Name = "comboBoxEstados";
             comboBoxEstados.Size = new Size(283, 23);

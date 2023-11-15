@@ -13,10 +13,18 @@ namespace ProyectoFinal
 {
     public partial class frmChoferes : Form
     {
+        private AsignacionPaquetesCamionetas asignacionPaquetesCamionetas;
+        private AsignacionLotesCamiones asignacionLotesCamiones;
+
         public frmChoferes()
         {
             InitializeComponent();
             dataGridView1.DoubleClick += new System.EventHandler(this.dataGridView1_DoubleClick);
+        }
+
+        private void AsignacionFormClosed(object sender, FormClosedEventArgs e)
+        {
+            CargarTransportesDisponibles();
         }
 
         private void frnClientes_Load(object sender, EventArgs e)
@@ -50,10 +58,20 @@ namespace ProyectoFinal
                 if (!string.IsNullOrWhiteSpace(matricula))
                 {
                     string tipo = Convert.ToString(dataGridView1.CurrentRow.Cells["Tipo"].Value);
-                    Form frmAsignacion = tipo == "Camioneta"
-                        ? new AsignacionPaquetesCamionetas(matricula)
-                        : new AsignacionLotesCamiones(matricula);
-                    frmAsignacion.ShowDialog();
+                    if (tipo == "Camioneta")
+                    {
+                        // Crear una instancia de AsignacionPaquetesCamionetas
+                        asignacionPaquetesCamionetas = new AsignacionPaquetesCamionetas(matricula);
+                        asignacionPaquetesCamionetas.FormClosed += AsignacionFormClosed;
+                        asignacionPaquetesCamionetas.ShowDialog();
+                    }
+                    else
+                    {
+                        // Crear una instancia de AsignacionLotesCamiones
+                        asignacionLotesCamiones = new AsignacionLotesCamiones(matricula);
+                        asignacionLotesCamiones.FormClosed += AsignacionFormClosed;
+                        asignacionLotesCamiones.ShowDialog();
+                    }
                 }
                 else
                 {

@@ -28,31 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnSalir = new Button();
-            btnComenzar = new Button();
             label2 = new Label();
             dataGridView1 = new DataGridView();
+            btnSalir = new Button();
+            btnComenzar = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
-            // 
-            // btnSalir
-            // 
-            btnSalir.Location = new Point(390, 452);
-            btnSalir.Name = "btnSalir";
-            btnSalir.Size = new Size(165, 48);
-            btnSalir.TabIndex = 13;
-            btnSalir.Text = "Cancelar";
-            btnSalir.UseVisualStyleBackColor = true;
-            // 
-            // btnComenzar
-            // 
-            btnComenzar.Location = new Point(188, 452);
-            btnComenzar.Name = "btnComenzar";
-            btnComenzar.Size = new Size(165, 48);
-            btnComenzar.TabIndex = 12;
-            btnComenzar.Text = "Comenzar ruta";
-            btnComenzar.UseVisualStyleBackColor = true;
-            btnComenzar.Click += btnComenzar_Click;
             // 
             // label2
             // 
@@ -72,8 +53,29 @@
             dataGridView1.Location = new Point(7, 74);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowTemplate.Height = 25;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(747, 356);
             dataGridView1.TabIndex = 10;
+            // 
+            // btnSalir
+            // 
+            btnSalir.Location = new Point(390, 452);
+            btnSalir.Name = "btnSalir";
+            btnSalir.Size = new Size(165, 48);
+            btnSalir.TabIndex = 13;
+            btnSalir.Text = "Cancelar";
+            btnSalir.UseVisualStyleBackColor = true;
+            btnSalir.Click += btnSalir_Click;
+            // 
+            // btnComenzar
+            // 
+            btnComenzar.Location = new Point(188, 452);
+            btnComenzar.Name = "btnComenzar";
+            btnComenzar.Size = new Size(165, 48);
+            btnComenzar.TabIndex = 12;
+            btnComenzar.Text = "Comenzar ruta";
+            btnComenzar.UseVisualStyleBackColor = true;
+            btnComenzar.Click += btnComenzar_Click;
             // 
             // AsignacionPaquetesCamionetas
             // 
@@ -88,15 +90,15 @@
             Controls.Add(dataGridView1);
             Name = "AsignacionPaquetesCamionetas";
             Text = "AsignacionPaquetesCamionetas";
+            Load += AsignacionPaquetesCamionetas_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
-
-        public Button btnSalir;
-        public Button btnComenzar;
         private Label label2;
         private DataGridView dataGridView1;
+        public Button btnSalir;
+        public Button btnComenzar;
     }
 }

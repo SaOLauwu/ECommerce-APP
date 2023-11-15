@@ -35,6 +35,8 @@
             label3 = new Label();
             btnLogin = new Button();
             btnSalir = new Button();
+            label4 = new Label();
+            btnCliente = new Button();
             SuspendLayout();
             // 
             // label1
@@ -87,7 +89,7 @@
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(186, 388);
+            btnLogin.Location = new Point(165, 387);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(186, 56);
             btnLogin.TabIndex = 6;
@@ -97,7 +99,7 @@
             // 
             // btnSalir
             // 
-            btnSalir.Location = new Point(447, 388);
+            btnSalir.Location = new Point(426, 387);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(186, 56);
             btnSalir.TabIndex = 7;
@@ -105,14 +107,37 @@
             btnSalir.UseVisualStyleBackColor = true;
             btnSalir.Click += btnSalir_Click;
             // 
+            // label4
+            // 
+            label4.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.ImageAlign = ContentAlignment.MiddleLeft;
+            label4.Location = new Point(259, 463);
+            label4.Name = "label4";
+            label4.Size = new Size(257, 47);
+            label4.TabIndex = 12;
+            label4.Text = "Iniciar como cliente:";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnCliente
+            // 
+            btnCliente.Location = new Point(290, 524);
+            btnCliente.Name = "btnCliente";
+            btnCliente.Size = new Size(186, 56);
+            btnCliente.TabIndex = 13;
+            btnCliente.Text = "Iniciar como cliente";
+            btnCliente.UseVisualStyleBackColor = true;
+            btnCliente.Click += btnCliente_Click;
+            // 
             // frmLogin
             // 
             AcceptButton = btnLogin;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnSalir;
-            ClientSize = new Size(823, 484);
+            ClientSize = new Size(823, 610);
             ControlBox = false;
+            Controls.Add(btnCliente);
+            Controls.Add(label4);
             Controls.Add(btnSalir);
             Controls.Add(btnLogin);
             Controls.Add(txtboxPass);
@@ -136,5 +161,7 @@
         public Button btnLogin;
         public Button btnSalir;
         public TextBox txtboxCi;
+        private Label label4;
+        public Button btnCliente;
     }
 }
