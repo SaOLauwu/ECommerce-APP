@@ -32,15 +32,9 @@ namespace ProyectoFinal
             string paquetesJSON = JsonSerializer.Serialize(paquetes);
             return CapaNegocios.ActualizarEstadoPaquetes(paquetesJSON);
         }
-
-        public static string AsignarPaquetesLote(int idAlmacen, List<int> idsPaquetes)
+        public static string AsignarPaquetesLote(int idAlmacen, int almacenDestino, List<int> idsPaquetes)
         {
-            string paquetesLoteJSON = JsonSerializer.Serialize(new
-            {
-                ID_Almacen = idAlmacen,
-                IDsPaquetes = idsPaquetes
-            });
-            return CapaNegocios.AsignarPaquetesANuevoLote(paquetesLoteJSON);
+            return CapaNegocios.AsignarPaquetesANuevoLote(idAlmacen, almacenDestino, idsPaquetes);
         }
         public static string CargarPaquetesPorAlmacen(int idAlmacen)
         {

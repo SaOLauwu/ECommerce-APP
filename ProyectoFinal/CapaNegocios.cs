@@ -307,17 +307,17 @@ namespace ProyectoFinal
             return "Estado de paquetes actualizado correctamente.";
         }
 
-        public static string AsignarPaquetesANuevoLote(string paquetesLoteJSON)
+        public static string AsignarPaquetesANuevoLote(int idAlmacen, int almacenDestino, List<int> idsPaquetes)
         {
-            var infoLote = JsonSerializer.Deserialize<EntidadesJSON.InfoLote>(paquetesLoteJSON);
-            int idAlmacen = infoLote.ID_Almacen;
-            List<int> idsPaquetes = infoLote.IDsPaquetes;
             object filasAfectadas = null;
             int nuevoLoteId = 0;
 
             try
             {
-                string sqlInsertLote = $"INSERT INTO Lotes (Fecha_Creacion, ID_Almacen, Estado) VALUES (NOW(), {idAlmacen}, 'En almacén');";
+                string fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                
+                string sqlInsertLote = $"INSERT INTO Lotes (Fecha_Creacion, ID_Almacen, Estado, AlmacenDestino) VALUES ('{fechaActual}', {idAlmacen}, 'En almacén', {almacenDestino})";
                 Program.cn.Execute(sqlInsertLote, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
 
                 string sqlLastId = "SELECT LAST_INSERT_ID();";
@@ -332,19 +332,21 @@ namespace ProyectoFinal
                 {
                     string sqlUpdatePaquete = $"UPDATE Paquetes SET ID_Lote = {nuevoLoteId} WHERE ID_Paquete = {idPaquete}";
                     Program.cn.Execute(sqlUpdatePaquete, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
-                    // Adicionalmente, insertar en Paquete_Lote.
+
                     string sqlInsertPaqueteLote = $"INSERT INTO Paquete_Lote (ID_Paquete, ID_Lote) VALUES ({idPaquete}, {nuevoLoteId})";
                     Program.cn.Execute(sqlInsertPaqueteLote, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
                 }
+
+                return $"Paquetes asignados al lote con ID {nuevoLoteId} correctamente.";
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error al asignar paquetes al nuevo lote: " + ex.Message);
                 return "Error al asignar paquetes al lote.";
             }
-
-            return $"Paquetes asignados al lote con ID {nuevoLoteId} correctamente.";
         }
+
+
 
 
         public static string ObtenerTransportesDisponibles(string sentenciaSerializada)
@@ -413,7 +415,36 @@ namespace ProyectoFinal
             return JsonSerializer.Serialize(lotes);
         }
 
-        // En CapaNegocios - Método ObtenerDatos
+        public static DataTable ObtenerAlmacenesDataTable()
+        {
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("ID_Almacen", typeof(int));
+            dataTable.Columns.Add("Descripcion", typeof(string));
+
+            Recordset rs = new Recordset();
+            object filasAfectadas;
+            string sql = "SELECT ID_Almacen, Ubicacion FROM Almacenes";
+            try
+            {
+                rs = Program.cn.Execute(sql, out filasAfectadas);
+                while (!rs.EOF)
+                {
+                    DataRow row = dataTable.NewRow();
+                    row["ID_Almacen"] = rs.Fields["ID_Almacen"].Value;
+                    row["Descripcion"] = $"{rs.Fields["ID_Almacen"].Value} - {rs.Fields["Ubicacion"].Value}";
+                    dataTable.Rows.Add(row);
+                    rs.MoveNext();
+                }
+                rs.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al obtener almacenes: " + ex.Message);
+                return null;
+            }
+            return dataTable;
+        }
+
         public static DataTable ObtenerDatos(string sql)
         {
             DataTable dataTable = new DataTable();
@@ -594,6 +625,98 @@ namespace ProyectoFinal
             catch (Exception ex)
             {
                 return "Error al crear el paquete: " + ex.Message;
+            }
+        }
+
+        public static List<Lote> ObtenerLotesEnViaje()
+        {
+            List<Lote> lotesEnViaje = new List<Lote>();
+
+            Recordset rs = new Recordset();
+            object filasAfectadas;
+            string sql = $"SELECT * FROM Lotes WHERE Estado = 'En viaje'";
+
+            try
+            {
+                rs = Program.cn.Execute(sql, out filasAfectadas, (int)CommandTypeEnum.adCmdText);
+                while (!rs.EOF)
+                {
+                    Lote lote = new Lote
+                    {
+                        ID_Lote = Convert.ToInt32(rs.Fields["ID_Lote"].Value),
+                        Fecha_Creacion = Convert.ToDateTime(rs.Fields["Fecha_Creacion"].Value),
+                        Estado = Convert.ToString(rs.Fields["Estado"].Value),
+                        AlmacenDestino = rs.Fields["AlmacenDestino"].Value is DBNull ? 0 : Convert.ToInt32(rs.Fields["AlmacenDestino"].Value)
+                    };
+                    lotesEnViaje.Add(lote);
+                    rs.MoveNext();
+                }
+                rs.Close();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error al obtener lotes en viaje: " + ex.Message);
+                throw; // O maneja la excepción de manera que prefieras
+            }
+
+            return lotesEnViaje;
+        }
+
+        public static string ProcesarLlegadaLote(int idLote, int idAlmacenActual)
+        {
+            // Iniciar la transacción
+            Program.cn.BeginTrans();
+            object filasAfectadas;
+            try
+            {
+                // Obtener la información del lote
+                string sqlLote = $"SELECT * FROM Lotes WHERE ID_Lote = {idLote}";
+                var rsLote = Program.cn.Execute(sqlLote, out filasAfectadas).Fields;
+                int almacenDestino = Convert.ToInt32(rsLote["AlmacenDestino"].Value);
+
+                // Verificar si el almacén actual es el destino
+                if (almacenDestino == idAlmacenActual)
+                {
+                    // Actualizar los paquetes del lote
+                    string sqlUpdatePaquetes = $"UPDATE Paquetes SET ID_Lote = NULL, ID_Almacen = {idAlmacenActual} WHERE ID_Lote = {idLote}";
+                    Program.cn.Execute(sqlUpdatePaquetes, out filasAfectadas);
+
+                    // Eliminar el lote ya que ha llegado a su destino
+                    string sqlDeleteLote = $"DELETE FROM Lotes WHERE ID_Lote = {idLote}";
+                    Program.cn.Execute(sqlDeleteLote, out filasAfectadas);
+                }
+                else
+                {
+                    // Actualizar el lote para reflejar que está en un almacén intermedio
+                    string sqlUpdateLote = $"UPDATE Lotes SET Estado = 'En almacén', ID_Almacen = {idAlmacenActual} WHERE ID_Lote = {idLote}";
+                    Program.cn.Execute(sqlUpdateLote, out filasAfectadas);
+                }
+
+                // Registrar el evento para cada paquete
+                string sqlPaquetes = $"SELECT ID_Paquete FROM Paquetes WHERE ID_Lote = {idLote}";
+                var rsPaquetes = Program.cn.Execute(sqlPaquetes, out filasAfectadas);
+                while (!rsPaquetes.EOF)
+                {
+                    int idPaquete = Convert.ToInt32(rsPaquetes.Fields["ID_Paquete"].Value);
+                    string tipoEvento = almacenDestino == idAlmacenActual ? "En almacén de destino" : "En almacén intermediario";
+
+                    string sqlInsertEvento = $@"INSERT INTO Eventos (ID_Paquete, Tipo_Evento, Fecha_Hora, Notas) 
+                                        VALUES ({idPaquete}, '{tipoEvento}', '{DateTime.Now:yyyy-MM-dd HH:mm:ss}', 'Llegada a almacén')";
+                    Program.cn.Execute(sqlInsertEvento, out filasAfectadas);
+                    rsPaquetes.MoveNext();
+                }
+                rsPaquetes.Close();
+
+                // Confirmar la transacción
+                Program.cn.CommitTrans();
+                return "Proceso de llegada de lote completado con éxito.";
+            }
+            catch (Exception ex)
+            {
+                // Revertir la transacción en caso de error
+                Program.cn.RollbackTrans();
+                Console.WriteLine("Error al procesar la llegada del lote: " + ex.Message);
+                return "Error al procesar la llegada del lote.";
             }
         }
     }

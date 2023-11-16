@@ -78,15 +78,20 @@ namespace ProyectoFinal
                 return;
             }
 
-            List<int> idsPaquetes = new List<int>();
-            foreach (DataGridViewRow row in selectedRows)
+            using (var formUbicacionLote = new FrmUbicacion())
             {
-                idsPaquetes.Add(Convert.ToInt32(row.Cells["ID_Paquete"].Value));
+                var result = formUbicacionLote.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    int idAlmacenSeleccionado = formUbicacionLote.IdAlmacenSeleccionado;
+                    List<int> idsPaquetes = selectedRows.Cast<DataGridViewRow>()
+                                                  .Select(row => Convert.ToInt32(row.Cells["ID_Paquete"].Value))
+                                                  .ToList();
+                    string resultado = API_Almacenes.AsignarPaquetesLote(idAlmacen, idAlmacenSeleccionado, idsPaquetes);
+                    MessageBox.Show(resultado);
+                    CargarPaquetes(); // Recargar los datos para reflejar los cambios
+                }
             }
-
-            string resultado = API_Almacenes.AsignarPaquetesLote(idAlmacen, idsPaquetes);
-            MessageBox.Show(resultado);
-            CargarPaquetes(); // Recargar los datos para reflejar los cambios
         }
 
         private void GestionAlmacenes_Load(object sender, EventArgs e)
@@ -103,14 +108,17 @@ namespace ProyectoFinal
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
-
+            using (var FrmLlegadaLote = new FrmLlegadaLote(this.idAlmacen))
+            {
+                FrmLlegadaLote.ShowDialog();
+            }
         }
     }
 }

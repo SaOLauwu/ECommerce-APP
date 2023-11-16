@@ -42,7 +42,6 @@ namespace ProyectoFinal
                             principal.btnChoferes.Visible = true;
                             principal.btnConfiguracion.Visible = true;
                             principal.btnSalir.Visible = true;
-                            principal.btnSeguimiento.Visible = true;
                             return 0;
                             
                         case "Almacenero":
@@ -50,7 +49,6 @@ namespace ProyectoFinal
                             principal.btnHome.Visible = true;
                             principal.btnConfiguracion.Visible = true;
                             principal.btnSalir.Visible = true;
-                            principal.btnSeguimiento.Visible = true;
                             principal.btnAlmacenes.Visible = true;
                             return 0;
 
@@ -59,7 +57,6 @@ namespace ProyectoFinal
                             principal.btnHome.Visible = true;
                             principal.btnConfiguracion.Visible = true;
                             principal.btnSalir.Visible = true;
-                            principal.btnSeguimiento.Visible = true;
                             principal.btnAlmacenes.Visible = true;
                             principal.btnBackoffice.Visible = true;
                             principal.btnChoferes.Visible = true;

@@ -35,6 +35,7 @@
             btnSalir = new Button();
             label2 = new Label();
             btnNuevoPaquete = new Button();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -110,12 +111,23 @@
             btnNuevoPaquete.UseVisualStyleBackColor = true;
             btnNuevoPaquete.Click += btnNuevoPaquete_Click;
             // 
+            // button1
+            // 
+            button1.Location = new Point(211, 565);
+            button1.Name = "button1";
+            button1.Size = new Size(161, 44);
+            button1.TabIndex = 24;
+            button1.Text = "Ingresar llegada de lote";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
+            // 
             // GestionAlmacenes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = btnSalir;
             ClientSize = new Size(967, 621);
+            Controls.Add(button1);
             Controls.Add(btnNuevoPaquete);
             Controls.Add(label2);
             Controls.Add(btnSalir);
@@ -139,5 +151,6 @@
         public Button btnSalir;
         private Label label2;
         public Button btnNuevoPaquete;
+        public Button button1;
     }
 }
