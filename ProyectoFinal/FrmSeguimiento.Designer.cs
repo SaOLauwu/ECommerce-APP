@@ -89,6 +89,7 @@
             // 
             // FrmSeguimiento
             // 
+            AcceptButton = btnBuscar;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(784, 620);

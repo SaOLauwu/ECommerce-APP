@@ -55,7 +55,7 @@
             btnCrear.Name = "btnCrear";
             btnCrear.Size = new Size(161, 44);
             btnCrear.TabIndex = 33;
-            btnCrear.Text = "Crear empleado";
+            btnCrear.Text = "Crear paquete";
             btnCrear.UseVisualStyleBackColor = true;
             btnCrear.Click += btnLogin_Click;
             // 
