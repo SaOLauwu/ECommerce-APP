@@ -1,0 +1,9 @@
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\ProyectoFinal.exe
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\ProyectoFinal.dll
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\ProyectoFinal.deps.json
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\ProyectoFinal.runtimeconfig.json
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\ProyectoFinal.pdb
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\Newtonsoft.Json.dll
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\System.Text.Encodings.Web.dll
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\System.Text.Json.dll
+C:\Users\santi\source\repos\ECommerce-APP\ProyectoFinal\bin\Release\net6.0-windows\app.publish\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "L6VBEzqJlKlvkkU7cdCSUV2pNyT5Mte6VTFy/ktaikFR7gR1GBnXSkNuRIduqVSCCxLGUmSn7/SGniWR7Vs2oQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\santi\\source\\repos\\ECommerce-APP\\ProyectoFinal\\ProyectoFinal.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\santi\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\system.text.encodings.web\\7.0.0\\system.text.encodings.web.7.0.0.nupkg.sha512",
+    "C:\\Users\\santi\\.nuget\\packages\\system.text.json\\7.0.3\\system.text.json.7.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
