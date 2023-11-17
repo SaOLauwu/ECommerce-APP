@@ -159,7 +159,7 @@ namespace ProyectoFinal
             
             
             Recordset rs = new Recordset();
-            string sql = "SELECT Cargo FROM empleados WHERE CI =" + a.ci + " AND Pass = '" + a.clave + "'";
+            string sql = "SELECT Cargo FROM Empleados WHERE CI =" + a.ci + " AND Pass = '" + a.clave + "'";
             Object filasAfectadas;
             try
             {
