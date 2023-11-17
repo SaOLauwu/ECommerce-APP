@@ -21,7 +21,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "administrador", "admin123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -38,7 +38,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "almacenero", "almacenero123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -53,7 +53,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "chofer", "chofer123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -78,7 +78,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "administrador", "admin123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -93,7 +93,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "almacenero", "almacenero123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -108,7 +108,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("database", "chofer", "chofer123");
+                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
@@ -133,7 +133,7 @@ namespace ProyectoFinal
 
                 try
                 {
-                    Program.cn.Open("database", "administrador", "admin123");
+                    Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                 }
                 catch
                 {
@@ -146,7 +146,7 @@ namespace ProyectoFinal
                 Program.cn.Close();
                 try
                 {
-                    Program.cn.Open("database", "administrador", "admin123");
+                    Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                 }
                 catch
                 {
@@ -579,7 +579,7 @@ namespace ProyectoFinal
 
             try
             {
-                Program.cn.Open("database", "chofer", "chofer123"); // Asegúrese de abrir la conexión
+                Program.cn.Open("datbase", "santiago.alvarez", "55540160");
                 Program.cn.CursorLocation = CursorLocationEnum.adUseClient;
 
                 rs.Open(sql, Program.cn, ADODB.CursorTypeEnum.adOpenStatic, ADODB.LockTypeEnum.adLockOptimistic, (int)ADODB.CommandTypeEnum.adCmdText);
