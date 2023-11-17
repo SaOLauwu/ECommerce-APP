@@ -139,38 +139,79 @@ FLUSH PRIVILEGES;
 -- Inserción de datos de prueba
 
 -- Inserción en la tabla Empleados primero
-INSERT INTO Empleados (CI, Nombre, Apellido, Cargo, Fecha_Contratacion, Pass, Email, Telefono, Direccion, isDeleted) VALUES
-(54673665, 'Roberto', 'Silva', 'Almacenero', '2023-11-01', 'passwordrobert', 'roberto.silva@example.com', '099123456', 'Direccion 1', FALSE),
-(35564736, 'Fernanda', 'Gomez', 'Almacenero', '2023-11-01', 'ferandaaa', 'fernanda.gomez@example.com', '099123457', 'Direccion 2', FALSE)
-;
--- ... Resto de los empleados
+INSERT INTO Empleados (CI, Nombre, Apellido, Cargo, Fecha_Contratacion, Pass, Email, Telefono, Direccion, isDeleted)
+VALUES 
+(54673665, 'Roberto', 'Silva', 'Almacenero', '2023-11-01', 'passwordrobert', 'roberto.silva@example.com', '099123456', 'Direccion 1', 0),
+(35564736, 'Fernanda', 'Gomez', 'Almacenero', '2023-11-01', 'ferandaaa', 'fernanda.gomez@example.com', '099123457', 'Direccion 2', 0),
+(22232345, 'Mauricio', 'Lopez', 'Almacenero', '2023-11-01', 'mamarracho11221', 'mauricio.lopez@example.com', '099123458', 'Direccion 3', 0),
+(77636526, 'Lucia', 'Fernandez', 'Almacenero', '2023-11-01', 'akakakak', 'lucia.fernandez@example.com', '099123459', 'Direccion 4', 0),
+(55488732, 'Carlos', 'Martinez', 'Almacenero', '2023-11-01', 'carlitoooos', 'carlos.martinez@example.com', '099123460', 'Direccion 5', 0),
+(22423453, 'Andrea', 'Rodriguez', 'Almacenero', '2023-11-01', 'annannana', 'andrea.rodriguez@example.com', '099123461', 'Direccion 6', 0),
+(11122241, 'Maringa', 'Fernandez', 'Almacenero', '2023-11-01', 'perrito123123', 'maringa.fernandez@example.com', '099123462', 'Direccion 7', 0),
+(88787822, 'Perrito', 'Madrigal', 'Almacenero', '2023-11-01', 'mariaiaiaiai', 'perrytheplatypus@example.com', '099123463', 'Direccion 8', 0),
+(12345567, 'Miau', 'Woof', 'Almacenero', '2023-11-01', 'skibididop', 'jotarokujo@example.com', '099123464', 'Direccion 9', 0),
+(22423410, 'Laufey', 'Kid', 'Almacenero', '2023-11-01', 'goodkid', 'pepe.rodriguez@example.com', '099123465', 'Direccion 10', 0),
+(11442134, 'Santiago', 'Alvarez', 'Administrativo', '2023-11-01', 'santiagoadmin', 'santiagoalv@gmail.com', '099123465', 'Direccion 10', 0),
+(88293817, 'Juan', 'Rodrigo', 'Chofer', '2023-11-01', 'juanchofer', 'juanelchofer@example.com', '099123463', 'Direccion 10', 0);
 
 -- Inserción en la tabla Ruta
 INSERT INTO Ruta (ID_Ruta, Origen, Destino, Distancia, Duracion_Estimada) VALUES
-(1, 'Montevideo', 'Canelones', 29.50, 0.50)
-;
--- ... Resto de las rutas
+(1, 'Montevideo', 'Canelones', 29.50, 0.50),
+(3, 'Montevideo', 'Paysandú', 368.00, 4.50),
+(4, 'Montevideo', 'Salto', 496.00, 6.00),
+(5, 'Montevideo', 'Maldonado', 139.00, 2.00),
+(7, 'Montevideo', 'Tacuarembó', 390.00, 5.00),
+(8, 'Montevideo', 'Colonia', 177.00, 2.50),
+(9, 'Montevideo', 'Treinta y Tres', 289.00, 4.00),
+(10, 'Montevideo', 'Punta del Este', 134.00, 2.00),
+(15, 'Montevideo', 'Rocha', 215.00, 3.00),
+(26, 'Montevideo', 'Rivera', 501.00, 6.00);
 
 -- Inserción en la tabla Clientes
-INSERT INTO Clientes (CI, Nombre, Apellido, Email, Telefono, Direccion) VALUES
-(12345678, 'Juan', 'Perez', 'juan.perez@example.com', '12345678', 'Calle Falsas 123');
--- ... Resto de los clientes
+INSERT INTO clientes (CI, Nombre, Apellido, Email, Telefono, Direccion) VALUES
+(12345678, 'Juan', 'Perez', 'juan.perez@example.com', '12345678', 'Calle Falsas 123'),
+(12345679, 'Carmen', 'Dominguez', 'carmen.dominguez@example.com', '12345679', 'Callejón de la Paz 101'),
+(23456789, 'Laura', 'Garcia', 'laura.garcia@example.com', '23456789', 'Avenida Siempre Viva 742'),
+(34567890, 'Carlos', 'Martinez', 'carlos.martinez@example.com', '34567890', 'Diagonal 456'),
+(45678901, 'Ana', 'Lopez', 'ana.lopez@example.com', '45678901', 'Calle del Olvido 789'),
+(56789012, 'David', 'Gomez', 'david.gomez@example.com', '56789012', 'Avenida de la Luz 321'),
+(67890123, 'Luisa', 'Fernandez', 'luisa.fernandez@example.com', '67890123', 'Paseo del Mar 567'),
+(78901234, 'Fernando', 'Torres', 'fernando.torres@example.com', '78901234', 'Camino Largo 890'),
+(89012345, 'Sofia', 'Rodriguez', 'sofia.rodriguez@example.com', '89012345', 'Ronda del Valle 654'),
+(90123456, 'Javier', 'Hernandez', 'javier.hernandez@example.com', '90123456', 'Plaza Central 432');
 
 -- Inserción en la tabla Transportes
 INSERT INTO Transportes (Matricula, Tipo, Capacidad, Estado) VALUES
-('ABC1234', 'Camioneta', 1000.00, 'Disponible');
--- ... Resto de los transportes
+('ABC1234', 'Camioneta', 1000.00, 'Disponible'),
+('DEF5678', 'Camión', 5000.00, 'Disponible'),
+('AAA6393', 'Camión', 6000.00, 'Disponible'),
+('AAK1551', 'Camioneta', 1500.00, 'Disponible'),
+('ABA9999', 'Camión', 4000.00, 'Disponible'),
+('DAA9878', 'Camioneta', 5000.00, 'Disponible');
 
 -- Inserción en la tabla Almacenes
 INSERT INTO Almacenes (Ubicacion, Responsable, IDRuta) VALUES
-('Montevideo', 54673665, NULL);
--- ... Resto de los almacenes
+('Montevideo', 54673665, NULL),
+('Canelones', 35564736, 1),
+('Maldonado', 22232345, 5),
+('Colonia', 77636526, 8),
+('Paysandú', 55488732, 3),
+('Punta del Este', 22423453, 10),
+('Rivera', 11122241, 26),
+('Rocha', 88787822, 15),
+('Salto', 12345567, 4),
+('Tacuarembó', 22423410, 7);
 
 -- Inserción en la tabla Paquetes
-INSERT INTO Paquetes (Descripcion, Peso, Estado, Ci, ID_Lote, ID_Almacen) VALUES
-('Nuevo paquete de libros', 5.00, 'En almacén', 12345678, NULL, 1);
--- ... Resto de los paquetes
-;
+ INSERT INTO Paquetes (Descripcion, Peso, Estado, Ci, ID_Lote, ID_Almacen) VALUES
+('Nuevo paquete de libros', 5.00, 'En almacén', 12345678, NULL, 1),
+('Nuevo paquete de ropa', 2.00, 'En almacén', 23456789, NULL, 2),
+('Nuevo equipo deportivo', 7.50, 'En almacén', 34567890, NULL, 3),
+('Nuevo paquete de juguetes', 3.50, 'En almacén', 45678901, NULL, 4),
+('Nuevo instrumento musical', 6.00, 'En almacén', 56789012, NULL, 5),
+('Nuevo paquete de alimentos', 4.00, 'En almacén', 67890123, NULL, 6),
+('Artículos de decoración', 3.20, 'En almacén', 78901234, NULL, 7),
+('Equipaje personal adicional', 10.00, 'En almacén', 89012345, NULL, 8);
 
 /*
 -- CONSULTAS SQL
