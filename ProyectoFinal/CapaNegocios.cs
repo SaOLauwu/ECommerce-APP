@@ -21,7 +21,7 @@ namespace ProyectoFinal
                 {
                     try
                     {
-                        Program.cn.Open("datbase", "santiago.alvarez", "55540160");
+                        Program.cn.Open("database", "santiago.alvarez", "55540160");
                     }
                     catch
                     {
